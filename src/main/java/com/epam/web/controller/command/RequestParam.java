@@ -1,6 +1,7 @@
 package com.epam.web.controller.command;
 
 public class RequestParam {
+    public static final String COMMAND = "command";
 //    ----------book----------
     public static final String BOOK_IMAGE = "book_image";
     public static final String BOOK_TITLE_RUS = "book_title_rus";

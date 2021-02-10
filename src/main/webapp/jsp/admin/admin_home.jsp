@@ -214,7 +214,7 @@
                 <tbody>
                 <c:forEach items="${authors}" var="author">
                     <tr>
-                        <td><img src="data:image/jpg;base64,${author.image}" width="240" height="300"></td>
+                        <td><img src="data:image/jpg;base64,${author.image}" width="120" height="150"></td>
                         <td>${author.name}</td>
                         <td>${author.surname}</td>
                         <td><a href="#" class="myButton">block</a></td>
@@ -235,7 +235,8 @@
                     <div class="close-btn" onclick="togglePopup3()">&times;</div>
                     <!-- --------------------add from for authors------------------------- -->
                     <h1>What is the author?</h1>
-                    <form class="add-form" method="post">
+                    <form class="add-form" method="post" enctype="multipart/form-data" action="upload">
+                        <input type="hidden" name="command" value="admin_add_author">
                         <input type="file" name="author_image" />
                         <label for="author_name">
                             <input type="text" placeholder="Author name" name="author_name" id="author_name">
@@ -245,7 +246,7 @@
                         </label>
                         <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
                     </form>
-                    <!-- --------------------add from------------------------- -->
+                    <!-- --------------------add from for authors------------------------- -->
                 </div>
             </div>
             <div class="popup" id="popup-4">

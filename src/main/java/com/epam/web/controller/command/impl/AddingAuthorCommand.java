@@ -9,7 +9,10 @@ import com.epam.web.model.service.impl.AuthorServiceImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.List;
 
 public class AddingAuthorCommand implements Command {
@@ -23,10 +26,18 @@ public class AddingAuthorCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         String page = PagePath.ADMIN_HOME;
-        String image = request.getParameter(RequestParam.AUTHOR_IMAGE);
+
         String name = request.getParameter(RequestParam.AUTHOR_NAME);
         String surname = request.getParameter(RequestParam.AUTHOR_SURNAME);
-        if(authorService.add(image, name, surname)) {
+        Part filePart = null;
+        try {
+            filePart = request.getPart(RequestParam.AUTHOR_IMAGE);
+        } catch (IOException | ServletException e) {
+            logger.error(e.getMessage());
+            return page;
+        }
+        logger.debug("Params form jsp: " + name + " " + surname);
+        if(authorService.add(filePart, name, surname)) {
             logger.debug("Added new author: " + name + " " + surname);
             List<Author> existAuthors = authorService.findAll();
             request.setAttribute("authors", existAuthors);

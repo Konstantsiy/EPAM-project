@@ -6,6 +6,7 @@ import com.epam.web.model.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import javax.servlet.http.Part;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,30 +30,54 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public boolean add(File image, String name, String surname) {
+    public boolean add(Part imagePart, String name, String surname) {
         Connection connection = null;
         PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        FileInputStream fis = null;
         int result = 0;
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(ADD_BOOK);
-            fis = new FileInputStream(image);
 
-            statement.setBinaryStream(1, (InputStream) fis, (int)(image.length()));
+            InputStream image = imagePart.getInputStream();
+
+            statement.setBlob(1, image);
             statement.setString(2, name);
             statement.setString(3, surname);
 
             result = statement.executeUpdate();
-            fis.close();
         } catch (SQLException | IOException e) {
             logger.error(e.getMessage());
         } finally {
-            connectionPool.close(connection, statement, resultSet);
+            connectionPool.close(connection, statement, null);
         }
         return result == 1;
     }
+
+//    @Override
+//    public boolean add(File imageFile, String name, String surname) {
+//        Connection connection = null;
+//        PreparedStatement statement = null;
+//        ResultSet resultSet = null;
+//        FileInputStream fis;
+//        int result = 0;
+//        try {
+//            connection = connectionPool.getConnection();
+//            statement = connection.prepareStatement(ADD_BOOK);
+//            fis = new FileInputStream(imageFile);
+//
+//            statement.setBinaryStream(1, fis, (int)(imageFile.length()));
+//            statement.setString(2, name);
+//            statement.setString(3, surname);
+//
+//            result = statement.executeUpdate();
+//            fis.close();
+//        } catch (SQLException | IOException e) {
+//            logger.error(e.getMessage());
+//        } finally {
+//            connectionPool.close(connection, statement, resultSet);
+//        }
+//        return result == 1;
+//    }
 
     @Override
     public boolean exists(String name, String surname) {
