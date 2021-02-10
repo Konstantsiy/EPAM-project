@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface UserService {
     Optional<User> login(String email, String password);
     boolean registration(String username, String age, String email, String password);
-    List<User> findAllUsers();
+    List<User> findAll();
     boolean adminVerification(String email, String password);
 }

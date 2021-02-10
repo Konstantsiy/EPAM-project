@@ -1,5 +1,6 @@
 package com.epam.web.controller.command;
 
+import com.epam.web.controller.command.impl.AddingAuthorCommand;
 import com.epam.web.controller.command.impl.LoginCommand;
 import com.epam.web.controller.command.impl.LogoutCommand;
 import com.epam.web.controller.command.impl.RegistrationCommand;
@@ -9,7 +10,8 @@ public enum CommandType {
     LOGOUT(new LogoutCommand()),
     REGISTRATION(new RegistrationCommand()),
 
-    ADMIN_LOGIN(new LoginCommand(true));
+    ADMIN_LOGIN(new LoginCommand(true)),
+    ADMIN_ADD_AUTHOR(new AddingAuthorCommand());
 
     private Command command;
 

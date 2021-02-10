@@ -47,7 +47,7 @@ public class LoginCommand implements Command {
             User user = userOptional.get();
             request.setAttribute("username", user.getUsername());
             if(isAdmin) {
-                List<User> existUsers = userService.findAllUsers();
+                List<User> existUsers = userService.findAll();
                 request.setAttribute("users", existUsers);
             }
             page = isAdmin ? PagePath.ADMIN_HOME : PagePath.HOME;

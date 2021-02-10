@@ -1,4 +1,4 @@
-package com.epam.web.controller;
+package com.epam.web.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

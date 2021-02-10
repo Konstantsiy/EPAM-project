@@ -1,6 +1,5 @@
 package com.epam.web.model.entity;
 
-import java.util.Objects;
 
 public class Publisher {
     private String title;

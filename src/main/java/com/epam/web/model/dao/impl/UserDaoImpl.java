@@ -18,7 +18,6 @@ public class UserDaoImpl implements UserDao {
     private final Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
     private static final UserDao instance = new UserDaoImpl();
-
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private final String LOGIN = "SELECT * FROM users WHERE email = ? AND password_hash = ?";

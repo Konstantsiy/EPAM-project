@@ -1,16 +1,13 @@
 package com.epam.web.model.service.impl;
 
-import com.epam.web.controller.PasswordCoder;
+import com.epam.web.util.PasswordCoder;
 import com.epam.web.model.dao.UserDao;
 import com.epam.web.model.dao.impl.UserDaoImpl;
 import com.epam.web.model.entity.User;
 import com.epam.web.model.service.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.taglibs.standard.tag.common.core.RedirectSupport;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -25,7 +22,7 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl() {}
 
     @Override
-    public List<User> findAllUsers() {
+    public List<User> findAll() {
         return UserDaoImpl.getInstance().findAll();
     }
 

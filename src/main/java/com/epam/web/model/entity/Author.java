@@ -4,12 +4,14 @@ package com.epam.web.model.entity;
 public class Author {
     private String name;
     private String surname;
+    private String image;
 
     public Author() {}
 
-    public Author(String name, String surname) {
+    public Author(String name, String surname, String image) {
         this.name = name;
         this.surname = surname;
+        this.image = image;
     }
 
     public String getName() {
@@ -18,6 +20,10 @@ public class Author {
 
     public String getSurname() {
         return surname;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     @Override

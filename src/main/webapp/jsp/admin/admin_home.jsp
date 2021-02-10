@@ -100,19 +100,13 @@
                     <div class="close-btn" onclick="togglePopup1()">&times;</div>
                     <!-- --------------------add from for books------------------------- -->
                     <h1>What are we going to read?</h1>
-                    <form class="add-form">
-                        <div class="upload-btn-wrapper">
-                            <button class="btn">Upload file</button>
-                            <input type="file" name="myfile" />
-                        </div>
-                        <label for="book_title_en">
-                            <input type="text" placeholder="Book title (Eng)" id="book_title_en" name="book_title_en">
+                    <form class="add-form" action="upload" enctype="multipart/form-data" method="post">
+                        <input type="file" name="book_image" />
+                        <label for="book_title">
+                            <input type="text" placeholder="Book title" id="book_title" name="book_title">
                         </label>
-                        <label for="book_title_ru">
-                            <input type="text" placeholder="Book title (Rus)" name="book_title_ru" id="book_title_ru">
-                        </label>
-                        <label for="size">
-                            <input type="number" placeholder="Pages number" name="size" id="size">
+                        <label for="book_size">
+                            <input type="number" placeholder="Pages number" name="book_size" id="book_size">
                         </label>
                         <select name="book_author" id="book_author">
                             <option value="Author1">Author1</option>
@@ -150,12 +144,12 @@
                             <option value="P2">P2</option>
                             <option value="P3">P3</option>
                         </select>
-                        <label for="publishing_year">
-                            <input type="number" placeholder="Publishing year" id="publishing_year" name="publishing_year">
+                        <label for="book_p_year">
+                            <input type="number" placeholder="Publishing year" id="book_p_year" name="book_p_year">
                         </label>
                         <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
                     </form>
-                    <!-- --------------------add from------------------------- -->
+                    <!-- --------------------add from for books------------------------- -->
                 </div>
             </div>
             <div class="popup" id="popup-2">
@@ -213,42 +207,41 @@
                     <th>Author</th>
                     <th>Name</th>
                     <th>Surname</th>
-                    <th></td>
-                    <th></td>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>[picture]</td>
-                    <td>Stephen</td>
-                    <td>King</td>
-                    <td><a href="#" class="myButton">edit</a></td>
-                    <td><a href="#" class="myButton">delete</a></td>
-                </tr>
+                <c:forEach items="${authors}" var="author">
+                    <tr>
+                        <td><img src="data:image/jpg;base64,${author.image}" width="240" height="300"></td>
+                        <td>${author.name}</td>
+                        <td>${author.surname}</td>
+                        <td><a href="#" class="myButton">block</a></td>
+                    </tr>
+                </c:forEach>
+<%--                <tr>--%>
+<%--                    <td>[picture]</td>--%>
+<%--                    <td>Stephen</td>--%>
+<%--                    <td>King</td>--%>
+<%--                    <td><a href="#" class="myButton">edit</a></td>--%>
+<%--                    <td><a href="#" class="myButton">delete</a></td>--%>
+<%--                </tr>--%>
                 </tbody>
             </table>
             <div class="popup" id="popup-3">
                 <div class="overlay"></div>
-                <div class="content" style="height: 500px; top: 150%;">
+                <div class="content" style="height: 400px; top: 120%;">
                     <div class="close-btn" onclick="togglePopup3()">&times;</div>
                     <!-- --------------------add from for authors------------------------- -->
                     <h1>What is the author?</h1>
-                    <form class="add-form">
-                        <div class="upload-btn-wrapper">
-                            <button class="btn">Upload file</button>
-                            <input type="file" name="myfile" />
-                        </div>
-                        <label for="name_en">
-                            <input type="text" placeholder="Author name (Eng)" name="name_en" id="name_en">
+                    <form class="add-form" method="post">
+                        <input type="file" name="author_image" />
+                        <label for="author_name">
+                            <input type="text" placeholder="Author name" name="author_name" id="author_name">
                         </label>
-                        <label for="name_ru">
-                            <input type="text" placeholder="Author name (Rus)" name="name_ru" id="name_ru">
-                        </label>
-                        <label for="surname_en">
-                            <input type="text" placeholder="Author surname (Eng)" name="surname_en" id="surname_en">
-                        </label>
-                        <label for="surname_ru">
-                            <input type="text" placeholder="Author surname (Rus)" name="surname_ru" id="surname_ru">
+                        <label for="author_surname">
+                            <input type="text" placeholder="Author surname" name="author_surname" id="author_surname">
                         </label>
                         <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
                     </form>
@@ -309,11 +302,11 @@
                     <!-- --------------------add from for genres------------------------- -->
                     <h1>Come on, compose</h1>
                     <form class="add-form">
-                        <label for="title_en">
-                            <input type="text" placeholder="Genre (Eng)" name="title_en" id="title_en">
+                        <label for="title_eng">
+                            <input type="text" placeholder="Genre (Eng)" name="title_eng" id="title_eng">
                         </label>
-                        <label for="title_ru">
-                            <input type="text" placeholder="Genre (Rus)" name="title_ru" id="title_ru">
+                        <label for="title_rus">
+                            <input type="text" placeholder="Genre (Rus)" name="title_rus" id="title_rus">
                         </label>
                         <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
                     </form>
