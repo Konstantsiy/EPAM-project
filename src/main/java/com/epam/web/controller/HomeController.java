@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = {"/controller", "*.do"})
+@WebServlet(urlPatterns = {"/controller", "/admin_view", "*.do"})
 public class HomeController extends HttpServlet {
 
     public void init() {}
@@ -28,7 +28,7 @@ public class HomeController extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Optional<Command> optionalCommand = CommandProvider.defineCommand(request.getParameter("command"));
 
-        Command command = optionalCommand.get();
+        Command command = optionalCommand.get();    // todo
         String page = command.execute(request);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);

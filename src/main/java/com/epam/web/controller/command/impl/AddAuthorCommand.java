@@ -15,17 +15,17 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.List;
 
-public class AddingAuthorCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(AddingAuthorCommand.class);
+public class AddAuthorCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(AddAuthorCommand.class);
     private final AuthorService authorService;
 
-    public AddingAuthorCommand() {
+    public AddAuthorCommand() {
         this.authorService = new AuthorServiceImpl();
     }
 
     @Override
     public String execute(HttpServletRequest request) {
-        String page = PagePath.ADMIN_HOME;
+        String page = PagePath.ADMIN_AUTHORS;
 
         String name = request.getParameter(RequestParam.AUTHOR_NAME);
         String surname = request.getParameter(RequestParam.AUTHOR_SURNAME);

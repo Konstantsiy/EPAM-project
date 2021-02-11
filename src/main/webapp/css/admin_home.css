@@ -50,6 +50,10 @@ body{
     border: none;
 }
 
+.wrapper .sidebar ul li button a{
+    color: aliceblue;
+}
+
 .wrapper .sidebar ul li button .fas{
     width: 25px;
 }
@@ -114,27 +118,27 @@ body{
 .table1 {
     left: auto;
     right: auto;
-    padding-left: 400px;
+    padding-left: 600px;
 }
 
 .table2 {
     left: auto;
     right: auto;
-    padding-left: 100px;
+    padding-left: 250px;
     display: flex;
 }
 
 .table3 {
     left: auto;
     right: auto;
-    padding-left: 400px;
+    padding-left: 600px;
     display: flex;
 }
 
 .table4 {
     left: auto;
     right: auto;
-    padding-left: 400px;
+    padding-left: 600px;
     display: flex;
 }
 

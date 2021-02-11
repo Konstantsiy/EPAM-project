@@ -45,4 +45,17 @@
     </form>
 </div>
 </body>
+<%--<script type="text/javascript">--%>
+<%--    $(document).ready(function () {--%>
+<%--        $('#email').blur(function () {--%>
+<%--            $.ajax({--%>
+<%--                url: 'controller',--%>
+<%--                type: 'get',--%>
+<%--                data: {--%>
+<%--                    email: $('#email').val()--%>
+<%--                }--%>
+<%--            })--%>
+<%--        })--%>
+<%--    })--%>
+<%--</script>--%>
 </html>

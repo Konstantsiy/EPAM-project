@@ -72,7 +72,6 @@
         <input type="submit" class="btn-registr" value="${submitValue}">
     </form>
 </div>
-
 <script src="${pageContext.request.contextPath}/js/validation_script.js"></script>
 </body>
 </html>

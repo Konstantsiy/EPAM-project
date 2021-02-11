@@ -6,7 +6,6 @@ import javax.servlet.http.Part;
 import java.io.InputStream;
 import java.util.List;
 
-public interface AuthorService {
+public interface AuthorService extends BaseService<Author> {
     boolean add(Part filePart, String name, String surname);
-    List<Author> findAll();
 }

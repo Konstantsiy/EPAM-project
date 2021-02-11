@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AddingBookCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(AddingBookCommand.class);
+public class AddBookCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(AddBookCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {

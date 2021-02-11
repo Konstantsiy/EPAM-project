@@ -50,7 +50,7 @@ public class LoginCommand implements Command {
                 List<User> existUsers = userService.findAll();
                 request.setAttribute("users", existUsers);
             }
-            page = isAdmin ? PagePath.ADMIN_HOME : PagePath.HOME;
+            page = isAdmin ? PagePath.ADMIN_AUTHORS : PagePath.HOME;
         } else {
             logger.error("there are no such user in database");
             page = PagePath.LOGIN;
