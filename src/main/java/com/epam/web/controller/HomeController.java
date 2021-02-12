@@ -2,6 +2,7 @@ package com.epam.web.controller;
 
 import com.epam.web.controller.command.Command;
 import com.epam.web.controller.command.CommandProvider;
+import com.epam.web.controller.command.RequestParam;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,8 +26,8 @@ public class HomeController extends HttpServlet {
         processRequest(request, response);
     }
 
-    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Optional<Command> optionalCommand = CommandProvider.defineCommand(request.getParameter("command"));
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Optional<Command> optionalCommand = CommandProvider.defineCommand(request.getParameter(RequestParam.COMMAND));
 
         Command command = optionalCommand.get();    // todo
         String page = command.execute(request);

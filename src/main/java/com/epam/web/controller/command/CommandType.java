@@ -13,7 +13,9 @@ public enum CommandType {
 
     VIEW_ALL_AUTHORS(new ViewAuthorsCommand()),
     VIEW_ALL_USERS(new ViewUsersCommand()),
-    VIEW_ALL_GENRES(new ViewGenresCommand());
+    VIEW_ALL_GENRES(new ViewGenresCommand()),
+
+    CHECK_GENRE(new CheckGenreCommand());
 //    VIEW_ALL_PUBLISHERS();
 
     private final Command command;

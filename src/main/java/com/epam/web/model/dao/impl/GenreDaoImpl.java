@@ -20,7 +20,7 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private final String ADD_GENRE = "INSERT INTO genres (title_eng, title_rus) values (?, ?)";
-    private final String FIND_ALL_GENRES = "SELECT * FORM genres";
+    private final String FIND_ALL_GENRES = "SELECT * FROM genres";
     private final String CHECK_GENRE = "SELECT EXISTS (SELECT id FROM genres WHERE ? = genres.title_eng)";
 
     private GenreDaoImpl() {}
@@ -33,16 +33,18 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     public boolean exists(String title) {
         Connection connection = null;
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         int result = 0;
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(CHECK_GENRE);
             statement.setString(1, title);
-            result = statement.executeUpdate();
+            resultSet = statement.executeQuery();
+            result = resultSet.getInt(1);
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
-            close(connection, statement);
+            close(connection, statement, resultSet);
         }
         return result == 1;
     }
