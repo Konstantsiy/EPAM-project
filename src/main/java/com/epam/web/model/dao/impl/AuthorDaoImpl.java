@@ -1,6 +1,7 @@
 package com.epam.web.model.dao.impl;
 
 import com.epam.web.model.dao.AuthorDao;
+import com.epam.web.model.dao.ClosableDao;
 import com.epam.web.model.entity.Author;
 import com.epam.web.model.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class AuthorDaoImpl implements AuthorDao {
+public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
     private final Logger logger = LogManager.getLogger(AuthorDaoImpl.class);
 
     private static final AuthorDao instance = new AuthorDaoImpl();
@@ -48,7 +49,7 @@ public class AuthorDaoImpl implements AuthorDao {
         } catch (SQLException | IOException e) {
             logger.error(e.getMessage());
         } finally {
-            connectionPool.close(connection, statement, null);
+            close(connection, statement);
         }
         return result == 1;
     }
@@ -84,6 +85,7 @@ public class AuthorDaoImpl implements AuthorDao {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        int result = 0;
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(CHECK_AUTHOR);
@@ -92,14 +94,13 @@ public class AuthorDaoImpl implements AuthorDao {
             statement.setString(2, surname);
 
             resultSet = statement.executeQuery();
-            int result = resultSet.getInt(1);
-            return result == 1;
+            result = resultSet.getInt(1);
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
-            connectionPool.close(connection, statement, resultSet);
+            close(connection, statement, resultSet);
         }
-        return false;
+        return result == 1;
     }
 
     private List<Author> convertResultSetToList(ResultSet resultSet) throws SQLException, IOException {
@@ -138,7 +139,7 @@ public class AuthorDaoImpl implements AuthorDao {
         } catch (SQLException | IOException e) {
             logger.error(e.getMessage());
         } finally {
-            connectionPool.close(connection, statement, resultSet);
+            close(connection, statement, resultSet);
         }
         return authors;
     }

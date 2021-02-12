@@ -1,11 +1,13 @@
 package com.epam.web.model.dao.impl;
 
+import com.epam.web.model.dao.ClosableDao;
 import com.epam.web.model.dao.UserDao;
 import com.epam.web.model.entity.User;
 import com.epam.web.model.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.awt.datatransfer.ClipboardOwner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends ClosableDao implements UserDao {
     private final Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
     private static final UserDao instance = new UserDaoImpl();
@@ -54,7 +56,7 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
-            connectionPool.close(connection, statement, resultSet);
+            close(connection, statement, resultSet);
         }
         return userOptional;
     }
@@ -75,7 +77,7 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
-            connectionPool.close(connection, statement, resultSet);
+            close(connection, statement, resultSet);
         }
         return true;
     }
@@ -100,7 +102,7 @@ public class UserDaoImpl implements UserDao {
                 logger.error(e.getMessage());
             }
             finally {
-                connectionPool.close(connection, statement, null);
+                close(connection, statement);
             }
             return true;
         } else {
@@ -118,11 +120,11 @@ public class UserDaoImpl implements UserDao {
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_ALL_USERS);
-            ResultSet result = statement.executeQuery();
-            while(result.next()) {
-                String username = result.getString(2);
-                int age = result.getInt(3);
-                String email = result.getString(4);
+            resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                String username = resultSet.getString(2);
+                int age = resultSet.getInt(3);
+                String email = resultSet.getString(4);
                 User user = new User(username, age, email);
                 logger.debug("User form db: " + user);
                 users.add(user);
@@ -130,7 +132,7 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
-            connectionPool.close(connection, statement, resultSet);
+            close(connection, statement, resultSet);
         }
         return users;
     }

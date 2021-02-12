@@ -21,6 +21,9 @@ public class RequestParam {
     public static final String AUTHOR_SURNAME = "author_surname";
 //    public static final String AUTHOR_SURNAME_ENG = "author_surname_eng";
 //    public static final String AUTHOR_BIOGRAPHY = "author_biography";
+//    ----------genre----------
+    public static final String GENRE_TITLE_ENG = "title_eng";
+    public static final String GENRE_TITLE_RUS = "title_rus";
 
 
 

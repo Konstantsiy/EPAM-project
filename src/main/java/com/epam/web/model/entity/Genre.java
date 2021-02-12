@@ -2,16 +2,22 @@ package com.epam.web.model.entity;
 
 
 public class Genre {
-    private String title;
+    private String titleRus;
+    private String titleEng;
 
     public Genre() {}
 
-    public Genre(String title) {
-        this.title = title;
+    public Genre(String titleEng, String titleRus) {
+        this.titleRus = titleRus;
+        this.titleEng = titleEng;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleEng() {
+        return titleEng;
+    }
+
+    public String getTitleRus() {
+        return titleRus;
     }
 
     @Override
@@ -19,16 +25,17 @@ public class Genre {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Genre genre = (Genre) o;
-        return title != null && title.equals(genre.title);
+        return titleRus != null && titleRus.equals(genre.titleRus);
     }
 
     @Override
     public int hashCode() {
-        return 31 * 17 + title.hashCode();
+        return 31 * 17 + titleRus.hashCode();
     }
 
     @Override
     public String toString() {
-        return new StringBuilder("Genre{").append( "title=").append(title).append("}").toString();
+        return new StringBuilder("Genre{").append( "titleEng=").append(titleEng)
+                .append(", titleRus=").append(titleRus).append("}").toString();
     }
 }

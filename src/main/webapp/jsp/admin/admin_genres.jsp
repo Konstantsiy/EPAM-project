@@ -11,15 +11,23 @@
         <table class="styled-table">
             <thead>
             <tr>
-                <th>Title</th>
+                <th>Title (Eng)</th>
+                <th>Title (Rus)</th>
                 <th></td>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Adventure</td>
-                <td><a href="#" class="myButton">delete</a></td>
-            </tr>
+            <c:forEach items="${genres}" var="genre">
+                <tr>
+                    <td>${genre.titleEng}</td>
+                    <td>${genre.titleRus}</td>
+                    <td><a href="#" class="myButton">block</a></td>
+                </tr>
+            </c:forEach>
+<%--            <tr>--%>
+<%--                <td>Adventure</td>--%>
+<%--                <td><a href="#" class="myButton">delete</a></td>--%>
+<%--            </tr>--%>
             </tbody>
         </table>
         <div class="popup" id="popup-5">
@@ -29,6 +37,7 @@
                 <!-- --------------------add from for genres------------------------- -->
                 <h1>Come on, compose</h1>
                 <form class="add-form">
+                    <input type="hidden" name="command" value="admin_add_genre">
                     <label for="title_eng">
                         <input type="text" placeholder="Genre (Eng)" name="title_eng" id="title_eng">
                     </label>
@@ -37,7 +46,7 @@
                     </label>
                     <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
                 </form>
-                <!-- --------------------add from------------------------- -->
+                <!-- ---------------------------------------------------------------- -->
             </div>
         </div>
         <div class="popup-btn-container">

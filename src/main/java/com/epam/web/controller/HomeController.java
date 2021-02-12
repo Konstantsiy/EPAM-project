@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = {"/controller", "/admin_view", "*.do"})
+@WebServlet(urlPatterns = {"/controller", "/admin_home", "*.do"})
 public class HomeController extends HttpServlet {
 
     public void init() {}

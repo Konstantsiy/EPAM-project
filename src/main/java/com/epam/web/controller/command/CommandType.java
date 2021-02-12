@@ -9,12 +9,14 @@ public enum CommandType {
 
     ADMIN_LOGIN(new LoginCommand(true)),
     ADMIN_ADD_AUTHOR(new AddAuthorCommand()),
+    ADMIN_ADD_GENRE(new AddGenreCommand()),
 
     VIEW_ALL_AUTHORS(new ViewAuthorsCommand()),
     VIEW_ALL_USERS(new ViewUsersCommand()),
     VIEW_ALL_GENRES(new ViewGenresCommand());
+//    VIEW_ALL_PUBLISHERS();
 
-    private Command command;
+    private final Command command;
 
     CommandType(Command command) {
         this.command = command;
