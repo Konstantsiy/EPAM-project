@@ -1,14 +1,14 @@
 package com.epam.web.model.entity;
 
 
-public class Author {
+public class Author extends BaseEntity {
     private String name;
     private String surname;
     private String image;
+//    public Author() {}
 
-    public Author() {}
-
-    public Author(String name, String surname, String image) {
+    public Author(int id, String name, String surname, String image) {
+        super(id);
         this.name = name;
         this.surname = surname;
         this.image = image;

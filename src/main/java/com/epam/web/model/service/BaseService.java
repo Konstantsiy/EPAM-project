@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface BaseService<E> {
     List<E> findAll();
+    void delete(int id);
 }

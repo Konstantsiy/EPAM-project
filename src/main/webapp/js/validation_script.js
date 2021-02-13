@@ -129,7 +129,7 @@ var emailValidityChecks = [
     {
         isInvalid: function(input) {
             var illegelCharacters = input.value.match(/^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})/g)
-            return illegalCharacters ? true : false;
+            return !!illegalCharacters;
         },
         invalidityMessage: 'Username can contain Latin letters, numbers and signs! # $% & \'* + - / =? ^ _ `{| } ~',
         element: document.querySelector('label[for="email"] .input-requirements li:nth-child(1)')
@@ -177,7 +177,7 @@ var passwordValidityChecks = [
 var passwordRepeatValidityChecks = [
     {
         isInvalid: function() {
-            return passwordRepeatInput.value != passwordInput.value;
+            return passwordRepeatInput.value !== passwordInput.value;
         },
         invalidityMessage: 'This password needs to match the first one'
     }

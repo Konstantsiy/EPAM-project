@@ -17,20 +17,27 @@ public class GenreServiceImpl implements GenreService {
     public GenreServiceImpl() {}
 
     @Override
-    public boolean add(String title_eng, String title_rus) {
-        if(genreDao.exists(title_eng)) {
+    public boolean add(String titleEng, String titleRus) {
+        if(genreDao.exists(titleEng, titleRus)) {
+            logger.debug("Genre " + titleEng + " (" + titleRus + ")" + " is already exist");
             return false;
         }
-        return genreDao.add(title_eng, title_rus);
+        return genreDao.add(titleEng, titleRus);
     }
 
     @Override
-    public boolean exists(String title) {
-        return genreDao.exists(title);
+    public boolean exists(String title, boolean isEng) {
+        return genreDao.exists(title, isEng);
     }
 
     @Override
     public List<Genre> findAll() {
         return genreDao.findAll();
+    }
+
+    @Override
+    public void delete(int id) {
+        genreDao.deleteById(id);
+        logger.info("Genre with id " + id + " was deleted");
     }
 }

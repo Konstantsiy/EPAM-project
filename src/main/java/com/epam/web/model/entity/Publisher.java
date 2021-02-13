@@ -1,12 +1,13 @@
 package com.epam.web.model.entity;
 
 
-public class Publisher {
+public class Publisher extends BaseEntity {
     private String title;
 
-    public Publisher() {}
+//    public Publisher() {}
 
-    public Publisher(String title) {
+    public Publisher(int id, String title) {
+        super(id);
         this.title = title;
     }
 

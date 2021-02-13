@@ -54,32 +54,6 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
         return result == 1;
     }
 
-//    @Override
-//    public boolean add(File imageFile, String name, String surname) {
-//        Connection connection = null;
-//        PreparedStatement statement = null;
-//        ResultSet resultSet = null;
-//        FileInputStream fis;
-//        int result = 0;
-//        try {
-//            connection = connectionPool.getConnection();
-//            statement = connection.prepareStatement(ADD_BOOK);
-//            fis = new FileInputStream(imageFile);
-//
-//            statement.setBinaryStream(1, fis, (int)(imageFile.length()));
-//            statement.setString(2, name);
-//            statement.setString(3, surname);
-//
-//            result = statement.executeUpdate();
-//            fis.close();
-//        } catch (SQLException | IOException e) {
-//            logger.error(e.getMessage());
-//        } finally {
-//            connectionPool.close(connection, statement, resultSet);
-//        }
-//        return result == 1;
-//    }
-
     @Override
     public boolean exists(String name, String surname) {
         Connection connection = null;
@@ -106,6 +80,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
     private List<Author> convertResultSetToList(ResultSet resultSet) throws SQLException, IOException {
         List<Author> authors = new ArrayList<>();
         while(resultSet.next()) {
+            int id = resultSet.getInt(1);
             Blob blob = resultSet.getBlob(2);
             String surname = resultSet.getString(3);
             String name = resultSet.getString(4);
@@ -120,7 +95,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
             String base64Image = Base64.getEncoder().encodeToString(imageBytes);
             inputStream.close();
             outputStream.close();
-            authors.add(new Author(name, surname, base64Image));
+            authors.add(new Author(id, name, surname, base64Image));
         }
         return authors;
     }
@@ -142,5 +117,10 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
             close(connection, statement, resultSet);
         }
         return authors;
+    }
+
+    @Override
+    public void deleteById(int id) {
+
     }
 }

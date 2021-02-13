@@ -1,15 +1,16 @@
 package com.epam.web.model.entity;
 
-public class User {
+public class User extends BaseEntity {
     private String username;
     private int age;
     private String email;
 //    private UserRole role;
 //    private boolean isActive;
 
-    public User() {}
+//    public User() {}
 
-    public User(String username, int age, String email) {
+    public User(int id, String username, int age, String email) {
+        super(id);
         this.username = username;
         this.age = age;
         this.email = email;

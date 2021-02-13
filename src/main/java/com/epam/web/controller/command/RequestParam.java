@@ -2,6 +2,7 @@ package com.epam.web.controller.command;
 
 public class RequestParam {
     public static final String COMMAND = "command";
+    public static final String ID = "id";
 //    ----------book----------
     public static final String BOOK_IMAGE = "book_image";
     public static final String BOOK_TITLE_RUS = "book_title_rus";
@@ -22,9 +23,10 @@ public class RequestParam {
 //    public static final String AUTHOR_SURNAME_ENG = "author_surname_eng";
 //    public static final String AUTHOR_BIOGRAPHY = "author_biography";
 //    ----------genre----------
+    public static final String GENRE_TITLE = "title";
     public static final String GENRE_TITLE_ENG = "title_eng";
     public static final String GENRE_TITLE_RUS = "title_rus";
-
+    public static final String LANG = "lang";
 
 
     private RequestParam() {}

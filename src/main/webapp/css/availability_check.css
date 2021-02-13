@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+.no-visible {
+    display: none;
+}
+
+.popup-result {
+    border-radius: 10px;
+    margin-left: 200px;
+    font-size: 15px;
+    text-align: center;
+    max-width: 100px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-style: italic;
+}
+
+.available {
+    background-color: aquamarine;
+}
+
+.unavailable {
+    background-color: salmon;
+}

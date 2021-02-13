@@ -21,7 +21,10 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
 
     private final String ADD_GENRE = "INSERT INTO genres (title_eng, title_rus) values (?, ?)";
     private final String FIND_ALL_GENRES = "SELECT * FROM genres";
-    private final String CHECK_GENRE = "SELECT EXISTS (SELECT id FROM genres WHERE ? = genres.title_eng)";
+    private final String CHECK_GENRE_ENG = "SELECT id FROM genres WHERE ? = genres.title_eng";
+    private final String CHECK_GENRE_RUS = "SELECT id FROM genres WHERE ? = genres.title_rus";
+    private final String CHECK_GENRE_ENG_RUS = "SELECT * FROM genres WHERE ? = genres.title_eng AND ? = genres.title_rus";
+    private final String DELETE_GENRE = "DELETE FROM genres WHERE ? = genres.id";
 
     private GenreDaoImpl() {}
 
@@ -30,23 +33,52 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     }
 
     @Override
-    public boolean exists(String title) {
+    public boolean exists(String title, boolean isEng) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        int result = 0;
+        boolean result = false;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(CHECK_GENRE);
+            if(isEng) {
+                statement = connection.prepareStatement(CHECK_GENRE_ENG);
+            } else {
+                statement = connection.prepareStatement(CHECK_GENRE_RUS);
+            }
             statement.setString(1, title);
             resultSet = statement.executeQuery();
-            result = resultSet.getInt(1);
+            if(resultSet.next()) {
+                result = true;
+            }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
             close(connection, statement, resultSet);
         }
-        return result == 1;
+        return result;
+    }
+
+    @Override
+    public boolean exists(String titleEng, String titleRus) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean result = false;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(CHECK_GENRE_ENG_RUS);
+            statement.setString(1, titleEng);
+            statement.setString(2, titleRus);
+            resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return result;
     }
 
     @Override
@@ -79,9 +111,10 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
             statement = connection.prepareStatement(FIND_ALL_GENRES);
             resultSet = statement.executeQuery();
             while(resultSet.next()) {
+                int id = resultSet.getInt(1);
                 String titleEng = resultSet.getString(2);
                 String titleRus = resultSet.getString(3);
-                Genre genre = new Genre(titleEng, titleRus);
+                Genre genre = new Genre(id, titleEng, titleRus);
                 genres.add(genre);
             }
         } catch (SQLException e) {
@@ -90,5 +123,21 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
             close(connection, statement, resultSet);
         }
         return genres;
+    }
+
+    @Override
+    public void deleteById(int id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(DELETE_GENRE);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement);
+        }
     }
 }

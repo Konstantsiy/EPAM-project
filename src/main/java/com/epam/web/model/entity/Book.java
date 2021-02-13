@@ -2,7 +2,7 @@ package com.epam.web.model.entity;
 
 import java.util.List;
 
-public class Book {
+public class Book extends BaseEntity {
     private String title;
     private Author author;
     private List<Genre> genres;
@@ -12,9 +12,10 @@ public class Book {
     private Publisher publisher;
     private int year;
 
-    public Book() {}
+//    public Book() {}
 
-    public Book(String title, Author author, List<Genre> genres, int size, double price, Cover cover, Publisher publisher, int year) {
+    public Book(int id, String title, Author author, List<Genre> genres, int size, double price, Cover cover, Publisher publisher, int year) {
+        super(id);
         this.title = title;
         this.author = author;
         this.genres = genres;

@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void delete(int id) {
+
+    }
+
+    @Override
     public Optional<User> login(String email, String password) {
 //        if(!UserValidator.isEmailValid(email) || !UserValidator.isPasswordValid(password)) { todo
 //            return Optional.empty();

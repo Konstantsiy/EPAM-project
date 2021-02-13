@@ -46,11 +46,12 @@ public class UserDaoImpl extends ClosableDao implements UserDao {
             statement.setString(2, passwordHash);
             resultSet = statement.executeQuery();
 
-            while (resultSet.next()) { // take only username
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
                 String username = resultSet.getString(2);
                 int age = resultSet.getInt(3);
                 String userEmail = resultSet.getString(4);
-                User user = new User(username, age, userEmail);
+                User user = new User(id, username, age, userEmail);
                 userOptional = Optional.of(user);
             }
         } catch (SQLException e) {
@@ -95,9 +96,7 @@ public class UserDaoImpl extends ClosableDao implements UserDao {
                 statement.setString(3, email);
                 statement.setString(4, passwordHash);
                 statement.executeUpdate();
-
-                User user = new User(username, age, email);
-                logger.info("new user in db: " + user);
+                logger.info("new user in db: " + username);
             } catch (SQLException e) {
                 logger.error(e.getMessage());
             }
@@ -122,10 +121,11 @@ public class UserDaoImpl extends ClosableDao implements UserDao {
             statement = connection.prepareStatement(FIND_ALL_USERS);
             resultSet = statement.executeQuery();
             while(resultSet.next()) {
+                int id = resultSet.getInt(1);
                 String username = resultSet.getString(2);
                 int age = resultSet.getInt(3);
                 String email = resultSet.getString(4);
-                User user = new User(username, age, email);
+                User user = new User(id, username, age, email);
                 logger.debug("User form db: " + user);
                 users.add(user);
             }
@@ -135,5 +135,10 @@ public class UserDaoImpl extends ClosableDao implements UserDao {
             close(connection, statement, resultSet);
         }
         return users;
+    }
+
+    @Override
+    public void deleteById(int id) {
+
     }
 }

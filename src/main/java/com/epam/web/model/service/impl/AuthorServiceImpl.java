@@ -44,4 +44,9 @@ public class AuthorServiceImpl implements AuthorService {
     public List<Author> findAll() {
         return authorDao.findAll();
     }
+
+    @Override
+    public void delete(int id) {
+
+    }
 }

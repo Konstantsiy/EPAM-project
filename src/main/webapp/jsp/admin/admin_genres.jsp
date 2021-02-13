@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <jsp:include page="admin_head.jsp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/availability_check.css">
 </head>
 <body>
 <div class="wrapper">
@@ -13,7 +14,7 @@
             <tr>
                 <th>Title (Eng)</th>
                 <th>Title (Rus)</th>
-                <th></td>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -21,14 +22,16 @@
                 <tr>
                     <td>${genre.titleEng}</td>
                     <td>${genre.titleRus}</td>
-                    <td><a href="#" class="myButton">delete</a></td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/controller?command=delete_genre&id=${genre.id}" class="myButton">delete</a>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <div class="popup" id="popup-5">
             <div class="overlay"></div>
-            <div class="content" style="height: 300px; top: 100%;">
+            <div class="content" style="height: 340px; top: 80%;">
                 <div class="close-btn" onclick="togglePopup5()">&times;</div>
                 <!-- --------------------add from for genres------------------------- -->
                 <h1>Come on, compose</h1>
@@ -37,10 +40,11 @@
                     <label for="title_eng">
                         <input type="text" placeholder="Genre (Eng)" name="title_eng" id="title_eng">
                     </label>
-                    <div id="adding_genre_result"></div>
+                    <div id="adding_genre_result_eng" class="popup-result no-visible"></div>
                     <label for="title_rus">
                         <input type="text" placeholder="Genre (Rus)" name="title_rus" id="title_rus">
                     </label>
+                    <div id="adding_genre_result_rus" class="popup-result no-visible"></div>
                     <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
                 </form>
                 <!-- ---------------------------------------------------------------- -->
@@ -53,22 +57,5 @@
 </div>
 <script src="${pageContext.request.contextPath}/js/popup_buttons.js"></script>
 <script src="http://code.jquery.com/jquery-2.2.4.js" type="text/javascript"></script>
-<script>
-    $(document).ready(function () {
-        $('#title_eng').blur(function () {
-            $.ajax({
-                url: '/check',
-                data: {
-                    title_eng: $('#title_eng').val(),
-                    command: "check_genre",
-                    source: "ajax"
-                },
-                type: 'get',
-                success: function (responseText) {
-                    $('#adding_genre_result').text(responseText);
-                }
-            });
-        });
-    });
-</script>
+<script src="${pageContext.request.contextPath}/js/genre_check.js" type="text/javascript"></script>
 </body>

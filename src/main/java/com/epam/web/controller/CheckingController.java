@@ -21,16 +21,17 @@ public class CheckingController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        Optional<Command> optionalCommand = CommandProvider.defineCommand(request.getParameter(RequestParam.COMMAND));
-//        Command command = optionalCommand.get();
-//        logger.debug("checking something");
-//        String result = command.execute(request);
-//        logger.info("result of checking: " + result);
-//        response.getWriter().write(result);
-        String result = "Available";
-        OutputStream outStream = response.getOutputStream();
-        outStream.write(result.getBytes(StandardCharsets.UTF_8));
-        outStream.flush();
-        outStream.close();
+        Optional<Command> optionalCommand = CommandProvider.defineCommand(request.getParameter(RequestParam.COMMAND));
+        Command command = optionalCommand.get();
+        logger.debug("checking...");
+        String result = command.execute(request);
+        logger.info("result of checking: " + result);
+        response.getWriter().write(result);
+//        logger.debug("checking...");
+//        String result = "Gghsghfgsdhfsdhf";
+//        OutputStream outStream = response.getOutputStream();
+//        outStream.write(result.getBytes(StandardCharsets.UTF_8));
+//        outStream.flush();
+//        outStream.close();
     }
 }

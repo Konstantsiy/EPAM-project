@@ -1,13 +1,14 @@
 package com.epam.web.model.entity;
 
 
-public class Genre {
+public class Genre extends BaseEntity {
     private String titleRus;
     private String titleEng;
 
-    public Genre() {}
+//    public Genre() {}
 
-    public Genre(String titleEng, String titleRus) {
+    public Genre(int id, String titleEng, String titleRus) {
+        super(id);
         this.titleRus = titleRus;
         this.titleEng = titleEng;
     }
