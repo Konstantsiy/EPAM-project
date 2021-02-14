@@ -5,7 +5,6 @@ public class Author extends BaseEntity {
     private String name;
     private String surname;
     private String image;
-//    public Author() {}
 
     public Author(int id, String name, String surname, String image) {
         super(id);

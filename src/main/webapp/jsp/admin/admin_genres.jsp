@@ -12,16 +12,14 @@
         <table class="styled-table">
             <thead>
             <tr>
-                <th>Title (Eng)</th>
-                <th>Title (Rus)</th>
+                <th>Genre</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${genres}" var="genre">
                 <tr>
-                    <td>${genre.titleEng}</td>
-                    <td>${genre.titleRus}</td>
+                    <td>${genre.title}</td>
                     <td>
                         <a href="${pageContext.request.contextPath}/controller?command=delete_genre&id=${genre.id}" class="myButton">delete</a>
                     </td>
@@ -31,21 +29,17 @@
         </table>
         <div class="popup" id="popup-5">
             <div class="overlay"></div>
-            <div class="content" style="height: 340px; top: 80%;">
+            <div class="content" style="height: 280px; top: 200%;">
                 <div class="close-btn" onclick="togglePopup5()">&times;</div>
                 <!-- --------------------add from for genres------------------------- -->
                 <h1>Come on, compose</h1>
                 <form class="add-form">
                     <input type="hidden" name="command" value="admin_add_genre">
-                    <label for="title_eng">
-                        <input type="text" placeholder="Genre (Eng)" name="title_eng" id="title_eng">
+                    <label for="genre_title">
+                        <input type="text" placeholder="Genre" name="title" id="genre_title" required>
                     </label>
-                    <div id="adding_genre_result_eng" class="popup-result no-visible"></div>
-                    <label for="title_rus">
-                        <input type="text" placeholder="Genre (Rus)" name="title_rus" id="title_rus">
-                    </label>
-                    <div id="adding_genre_result_rus" class="popup-result no-visible"></div>
-                    <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
+                    <div id="adding_genre_result" class="popup-result no-visible"></div>
+                    <input type="submit" class="searching" id="btn-add" value="Append" style="margin-top: 20px;">
                 </form>
                 <!-- ---------------------------------------------------------------- -->
             </div>

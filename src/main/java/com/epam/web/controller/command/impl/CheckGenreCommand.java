@@ -13,8 +13,6 @@ public class CheckGenreCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CheckGenreCommand.class);
     private final GenreService genreService;
 
-    private final String ENGLISH = "eng";
-
     public CheckGenreCommand() {
         this.genreService = new GenreServiceImpl();
     }
@@ -22,9 +20,7 @@ public class CheckGenreCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         String title = request.getParameter(RequestParam.GENRE_TITLE);
-        String lang = request.getParameter(RequestParam.LANG);
-        boolean isEng = lang.equals(ENGLISH);
-        boolean exist = genreService.exists(title, isEng);
+        boolean exist = genreService.exists(title);
         String result = exist ? "Unavailable" : "Available";
         return result;
     }

@@ -18,15 +18,10 @@ public class RequestParam {
 //    ----------author----------
     public static final String AUTHOR_IMAGE = "author_image";
     public static final String AUTHOR_NAME = "author_name";
-//    public static final String AUTHOR_NAME_ENG = "author_image";
     public static final String AUTHOR_SURNAME = "author_surname";
-//    public static final String AUTHOR_SURNAME_ENG = "author_surname_eng";
-//    public static final String AUTHOR_BIOGRAPHY = "author_biography";
+    public static final String AUTHOR_BIOGRAPHY = "author_bio";
 //    ----------genre----------
     public static final String GENRE_TITLE = "title";
-    public static final String GENRE_TITLE_ENG = "title_eng";
-    public static final String GENRE_TITLE_RUS = "title_rus";
-    public static final String LANG = "lang";
 
 
     private RequestParam() {}

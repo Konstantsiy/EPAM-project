@@ -20,9 +20,10 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
     private static final AuthorDao instance = new AuthorDaoImpl();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private final String ADD_BOOK = "INSERT INTO authors (image, name, surname) values (?, ?, ?)";
-    private final String CHECK_AUTHOR = "SELECT EXISTS (SELECT id FROM authors WHERE ? = authors.name AND ? = authors.surname)";
-    private final String FIND_ALL_AUTHORS = "SELECT * FROM authors";
+    private final String ADD_BOOK = "INSERT INTO authors (image, name, surname, bio) values (?, ?, ?, ?)";
+    private final String CHECK_AUTHOR = "SELECT * FROM authors WHERE ? = authors.name AND ? = authors.surname";
+    private final String FIND_ALL_AUTHORS = "SELECT authors.image, authors.name, authors.surname FROM authors";
+    private final String DELETE_AUTHOR = "DELETE FROM authors WHERE ? = authors.id";
 
     private AuthorDaoImpl() {}
 
@@ -31,7 +32,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
     }
 
     @Override
-    public boolean add(Part imagePart, String name, String surname) {
+    public boolean add(Part imagePart, String name, String surname, String bio) {
         Connection connection = null;
         PreparedStatement statement = null;
         int result = 0;
@@ -44,6 +45,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
             statement.setBlob(1, image);
             statement.setString(2, name);
             statement.setString(3, surname);
+            statement.setString(4, bio);
 
             result = statement.executeUpdate();
         } catch (SQLException | IOException e) {
@@ -59,7 +61,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        int result = 0;
+        boolean result = false;
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(CHECK_AUTHOR);
@@ -68,13 +70,15 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
             statement.setString(2, surname);
 
             resultSet = statement.executeQuery();
-            result = resultSet.getInt(1);
+            if(resultSet.next()) {
+                result = true;
+            }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
             close(connection, statement, resultSet);
         }
-        return result == 1;
+        return result;
     }
 
     private List<Author> convertResultSetToList(ResultSet resultSet) throws SQLException, IOException {
@@ -121,6 +125,17 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
 
     @Override
     public void deleteById(int id) {
-
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(DELETE_AUTHOR);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement);
+        }
     }
 }

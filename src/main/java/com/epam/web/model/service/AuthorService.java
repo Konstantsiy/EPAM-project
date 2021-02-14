@@ -7,5 +7,6 @@ import java.io.InputStream;
 import java.util.List;
 
 public interface AuthorService extends BaseService<Author> {
-    boolean add(Part filePart, String name, String surname);
+    boolean add(Part filePart, String name, String surname, String bio);
+    boolean exists(String name, String surname);
 }

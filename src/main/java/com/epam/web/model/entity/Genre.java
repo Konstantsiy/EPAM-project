@@ -2,23 +2,15 @@ package com.epam.web.model.entity;
 
 
 public class Genre extends BaseEntity {
-    private String titleRus;
-    private String titleEng;
+    private String title;
 
-//    public Genre() {}
-
-    public Genre(int id, String titleEng, String titleRus) {
+    public Genre(int id, String titleEng) {
         super(id);
-        this.titleRus = titleRus;
-        this.titleEng = titleEng;
+        this.title = titleEng;
     }
 
-    public String getTitleEng() {
-        return titleEng;
-    }
-
-    public String getTitleRus() {
-        return titleRus;
+    public String getTitle() {
+        return title;
     }
 
     @Override
@@ -26,17 +18,16 @@ public class Genre extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Genre genre = (Genre) o;
-        return titleRus != null && titleRus.equals(genre.titleRus);
+        return title != null && title.equals(genre.title);
     }
 
     @Override
     public int hashCode() {
-        return 31 * 17 + titleRus.hashCode();
+        return 31 * 17 + title.hashCode();
     }
 
     @Override
     public String toString() {
-        return new StringBuilder("Genre{").append( "titleEng=").append(titleEng)
-                .append(", titleRus=").append(titleRus).append("}").toString();
+        return new StringBuilder("Genre{").append( "titleEng=").append(title).append("}").toString();
     }
 }

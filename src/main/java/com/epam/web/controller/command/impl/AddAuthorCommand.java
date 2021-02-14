@@ -29,7 +29,9 @@ public class AddAuthorCommand implements Command {
 
         String name = request.getParameter(RequestParam.AUTHOR_NAME);
         String surname = request.getParameter(RequestParam.AUTHOR_SURNAME);
-        Part filePart = null;
+        String bio = request.getParameter(RequestParam.AUTHOR_BIOGRAPHY);
+
+        Part filePart;
         try {
             filePart = request.getPart(RequestParam.AUTHOR_IMAGE);
         } catch (IOException | ServletException e) {
@@ -37,7 +39,7 @@ public class AddAuthorCommand implements Command {
             return page;
         }
         logger.debug("Params form jsp: " + name + " " + surname);
-        if(authorService.add(filePart, name, surname)) {
+        if(authorService.add(filePart, name, surname, bio)) {
             logger.debug("Added new author: " + name + " " + surname);
             List<Author> existAuthors = authorService.findAll();
             request.setAttribute("authors", existAuthors);

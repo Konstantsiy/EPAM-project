@@ -24,11 +24,10 @@ public class AddGenreCommand implements Command {
     public String execute(HttpServletRequest request) {
         String page = PagePath.ADMIN_GENRES;
 
-        String title_eng = request.getParameter(RequestParam.GENRE_TITLE_ENG);
-        String title_rus = request.getParameter(RequestParam.GENRE_TITLE_RUS);
+        String title = request.getParameter(RequestParam.GENRE_TITLE);
 
-        if(genreService.add(title_eng, title_rus)) {
-            logger.debug("Added new genre: " + title_eng + " (" + title_rus + ")");
+        if(genreService.add(title)) {
+            logger.debug("Added new genre: " + title + " (" + title + ")");
             List<Genre> existGenres = genreService.findAll();
             request.setAttribute("genres", existGenres);
         } else {

@@ -17,17 +17,17 @@ public class GenreServiceImpl implements GenreService {
     public GenreServiceImpl() {}
 
     @Override
-    public boolean add(String titleEng, String titleRus) {
-        if(genreDao.exists(titleEng, titleRus)) {
-            logger.debug("Genre " + titleEng + " (" + titleRus + ")" + " is already exist");
+    public boolean add(String title) {
+        if(genreDao.exists(title)) {
+            logger.debug("Genre " + title + " is already exist");
             return false;
         }
-        return genreDao.add(titleEng, titleRus);
+        return genreDao.add(title);
     }
 
     @Override
-    public boolean exists(String title, boolean isEng) {
-        return genreDao.exists(title, isEng);
+    public boolean exists(String title) {
+        return genreDao.exists(title);
     }
 
     @Override

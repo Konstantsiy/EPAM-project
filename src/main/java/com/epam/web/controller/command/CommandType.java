@@ -16,8 +16,10 @@ public enum CommandType {
     VIEW_ALL_GENRES(new ViewGenresCommand()),
 
     DELETE_GENRE(new DeleteGenreCommand()),
+    DELETE_AUTHOR(new DeleteAuthorCommand()),
 
-    CHECK_GENRE(new CheckGenreCommand());
+    CHECK_GENRE(new CheckGenreCommand()),
+    CHECK_AUTHOR(new CheckAuthorCommand());
 //    VIEW_ALL_PUBLISHERS();
 
     private final Command command;

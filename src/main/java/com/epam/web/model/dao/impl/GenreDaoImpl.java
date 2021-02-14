@@ -19,11 +19,9 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     private static final GenreDao instance = new GenreDaoImpl();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private final String ADD_GENRE = "INSERT INTO genres (title_eng, title_rus) values (?, ?)";
+    private final String ADD_GENRE = "INSERT INTO genres (title) values (?)";
     private final String FIND_ALL_GENRES = "SELECT * FROM genres";
-    private final String CHECK_GENRE_ENG = "SELECT id FROM genres WHERE ? = genres.title_eng";
-    private final String CHECK_GENRE_RUS = "SELECT id FROM genres WHERE ? = genres.title_rus";
-    private final String CHECK_GENRE_ENG_RUS = "SELECT * FROM genres WHERE ? = genres.title_eng AND ? = genres.title_rus";
+    private final String CHECK_GENRE = "SELECT id FROM genres WHERE ? = genres.title";
     private final String DELETE_GENRE = "DELETE FROM genres WHERE ? = genres.id";
 
     private GenreDaoImpl() {}
@@ -33,18 +31,14 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     }
 
     @Override
-    public boolean exists(String title, boolean isEng) {
+    public boolean exists(String title) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         boolean result = false;
         try {
             connection = connectionPool.getConnection();
-            if(isEng) {
-                statement = connection.prepareStatement(CHECK_GENRE_ENG);
-            } else {
-                statement = connection.prepareStatement(CHECK_GENRE_RUS);
-            }
+            statement = connection.prepareStatement(CHECK_GENRE);
             statement.setString(1, title);
             resultSet = statement.executeQuery();
             if(resultSet.next()) {
@@ -59,38 +53,14 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     }
 
     @Override
-    public boolean exists(String titleEng, String titleRus) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        boolean result = false;
-        try {
-            connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(CHECK_GENRE_ENG_RUS);
-            statement.setString(1, titleEng);
-            statement.setString(2, titleRus);
-            resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                result = true;
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-        } finally {
-            close(connection, statement, resultSet);
-        }
-        return result;
-    }
-
-    @Override
-    public boolean add(String title_eng, String title_rus) {
+    public boolean add(String title) {
         Connection connection = null;
         PreparedStatement statement = null;
         int result = 0;
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(ADD_GENRE);
-            statement.setString(1, title_eng);
-            statement.setString(2, title_rus);
+            statement.setString(1, title);
             result = statement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
@@ -112,9 +82,8 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
             resultSet = statement.executeQuery();
             while(resultSet.next()) {
                 int id = resultSet.getInt(1);
-                String titleEng = resultSet.getString(2);
-                String titleRus = resultSet.getString(3);
-                Genre genre = new Genre(id, titleEng, titleRus);
+                String title = resultSet.getString(2);
+                Genre genre = new Genre(id, title);
                 genres.add(genre);
             }
         } catch (SQLException e) {

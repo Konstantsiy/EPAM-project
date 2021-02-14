@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <jsp:include page="admin_head.jsp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/availability_check.css">
 </head>
 <body>
 <div class="wrapper">
@@ -21,30 +22,35 @@
             <tbody>
             <c:forEach items="${authors}" var="author">
                 <tr>
-                    <td><img src="data:image/jpg;base64,${author.image}" width="120" height="150"></td>
+                    <td><img src="data:image/jpg;base64,${author.image}" width="60" height="75"></td>
                     <td>${author.name}</td>
                     <td>${author.surname}</td>
-                    <td><a href="#" class="myButton">block</a></td>
+                    <td><a href="${pageContext.request.contextPath}/controller?command=delete_author?id=${author.id}" class="myButton">delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <div class="popup" id="popup-3">
             <div class="overlay"></div>
-            <div class="content" style="height: 400px; top: 120%;">
+            <div class="content" style="height: 700px; top: 240%;">
                 <div class="close-btn" onclick="togglePopup3()">&times;</div>
                 <!-- --------------------add from for authors------------------------- -->
                 <h1>What is the author?</h1>
-                <form class="add-form" method="post" enctype="multipart/form-data" action="upload">
+                <form id="add-form" class="add-form" method="post" enctype="multipart/form-data" action="upload">
                     <input type="hidden" name="command" value="admin_add_author">
                     <input type="file" name="author_image" />
                     <label for="author_name">
-                        <input type="text" placeholder="Author name" name="author_name" id="author_name">
+                        <input type="text" placeholder="Author name" name="author_name" id="author_name" required>
                     </label>
+                    <div id="result_name" class="popup-result no-visible"></div>
                     <label for="author_surname">
-                        <input type="text" placeholder="Author surname" name="author_surname" id="author_surname">
+                        <input type="text" placeholder="Author surname" name="author_surname" id="author_surname" required>
                     </label>
-                    <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
+                    <div id="result_surname" class="popup-result no-visible"></div>
+                    <label for="bio">
+                        <textarea class="bio_rus" placeholder="Author biography" name="author_bio" id="bio" cols="20" rows="8"></textarea>
+                    </label>
+                    <input id="btn-add" type="submit" class="searching" value="Append" style="margin-top: 20px;">
                 </form>
                 <!-- --------------------add from for authors------------------------- -->
             </div>
@@ -82,4 +88,6 @@
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/js/popup_buttons.js"></script>
+<script src="http://code.jquery.com/jquery-2.2.4.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/author_check.js" type="text/javascript"></script>
 </body>
