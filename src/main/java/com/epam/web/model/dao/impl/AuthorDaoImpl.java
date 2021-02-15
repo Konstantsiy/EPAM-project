@@ -22,7 +22,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
 
     private final String ADD_BOOK = "INSERT INTO authors (image, name, surname, bio) values (?, ?, ?, ?)";
     private final String CHECK_AUTHOR = "SELECT * FROM authors WHERE ? = authors.name AND ? = authors.surname";
-    private final String FIND_ALL_AUTHORS = "SELECT authors.image, authors.name, authors.surname FROM authors";
+    private final String FIND_ALL_AUTHORS = "SELECT authors.id, authors.image, authors.name, authors.surname FROM authors";
     private final String DELETE_AUTHOR = "DELETE FROM authors WHERE ? = authors.id";
 
     private AuthorDaoImpl() {}
@@ -86,8 +86,8 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
         while(resultSet.next()) {
             int id = resultSet.getInt(1);
             Blob blob = resultSet.getBlob(2);
-            String surname = resultSet.getString(3);
-            String name = resultSet.getString(4);
+            String name = resultSet.getString(3);
+            String surname = resultSet.getString(4);
             InputStream inputStream = blob.getBinaryStream();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[4096];

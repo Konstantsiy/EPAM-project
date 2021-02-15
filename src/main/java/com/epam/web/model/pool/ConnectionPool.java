@@ -16,8 +16,8 @@ public class ConnectionPool {
 
     private BlockingQueue<ProxyConnection> freeConnections;
     private Queue<ProxyConnection> givenConnections;
-    private final int DEFAULT_POOL_SIZE = 8;
-    private final int FATAL_CONNECTION_ERROR_NUMBER = 5;
+    private final int DEFAULT_POOL_SIZE = 12;
+    private final int FATAL_CONNECTION_ERROR_NUMBER = 8;
 
     private final String url = "jdbc:mysql://localhost:3306/bookshopdb?characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false";
     private final String user = "root";

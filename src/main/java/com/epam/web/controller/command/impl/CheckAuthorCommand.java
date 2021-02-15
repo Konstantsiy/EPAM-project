@@ -22,7 +22,6 @@ public class CheckAuthorCommand implements Command {
         String name = request.getParameter(RequestParam.AUTHOR_NAME);
         String surname = request.getParameter(RequestParam.AUTHOR_SURNAME);
         boolean exists = authorService.exists(name, surname);
-        String result = exists ? "Unavailable" : "Available";
-        return result;
+        return exists ? "Unavailable" : "Available";
     }
 }

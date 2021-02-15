@@ -4,9 +4,9 @@ package com.epam.web.model.entity;
 public class Genre extends BaseEntity {
     private String title;
 
-    public Genre(int id, String titleEng) {
+    public Genre(int id, String title) {
         super(id);
-        this.title = titleEng;
+        this.title = title;
     }
 
     public String getTitle() {

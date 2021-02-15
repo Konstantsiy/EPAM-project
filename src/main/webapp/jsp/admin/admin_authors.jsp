@@ -25,7 +25,7 @@
                     <td><img src="data:image/jpg;base64,${author.image}" width="60" height="75"></td>
                     <td>${author.name}</td>
                     <td>${author.surname}</td>
-                    <td><a href="${pageContext.request.contextPath}/controller?command=delete_author?id=${author.id}" class="myButton">delete</a></td>
+                    <td><a href="${pageContext.request.contextPath}/controller?command=delete_author&id=${author.id}" class="myButton">delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -37,7 +37,7 @@
                 <!-- --------------------add from for authors------------------------- -->
                 <h1>What is the author?</h1>
                 <form id="add-form" class="add-form" method="post" enctype="multipart/form-data" action="upload">
-                    <input type="hidden" name="command" value="admin_add_author">
+                    <input type="hidden" name="command" value="add_author">
                     <input type="file" name="author_image" />
                     <label for="author_name">
                         <input type="text" placeholder="Author name" name="author_name" id="author_name" required>
@@ -55,35 +55,35 @@
                 <!-- --------------------add from for authors------------------------- -->
             </div>
         </div>
-        <div class="popup" id="popup-4">
-            <div class="overlay"></div>
-            <div class="content">
-                <div class="close-btn" onclick="togglePopup4()">&times;</div>
-                <h1>Search 4</h1>
-                <!-- ---------------------search form for authors---------------------- -->
-                <label for="name">
-                    <input type="text" placeholder="Author name" name="name" id="name">
-                </label>
-                <label for="surname">
-                    <input type="text" placeholder="Author surname" name="surname" id="surname">
-                </label>
+<%--        <div class="popup" id="popup-4">--%>
+<%--            <div class="overlay"></div>--%>
+<%--            <div class="content">--%>
+<%--                <div class="close-btn" onclick="togglePopup4()">&times;</div>--%>
+<%--                <h1>Search 4</h1>--%>
+<%--                <!-- ---------------------search form for authors---------------------- -->--%>
+<%--                <label for="name">--%>
+<%--                    <input type="text" placeholder="Author name" name="name" id="name">--%>
+<%--                </label>--%>
+<%--                <label for="surname">--%>
+<%--                    <input type="text" placeholder="Author surname" name="surname" id="surname">--%>
+<%--                </label>--%>
 
-                <from class="search-book">
-                    <select name="genre" id="genre">
-                        <option value="Horror">Horror</option>
-                        <option value="Fiction">Fiction</option>
-                        <option value="Adventure">Adventure</option>
-                        <option value="Fantastic">Fantastic</option>
-                    </select>
+<%--                <from class="search-book">--%>
+<%--                    <select name="genre" id="genre">--%>
+<%--                        <option value="Horror">Horror</option>--%>
+<%--                        <option value="Fiction">Fiction</option>--%>
+<%--                        <option value="Adventure">Adventure</option>--%>
+<%--                        <option value="Fantastic">Fantastic</option>--%>
+<%--                    </select>--%>
 
-                    <input type="submit" class="searching" value="Search" style="margin-top: 30px;">
-                </from>
-                <!-- ---------------------search form---------------------- -->
-            </div>
-        </div>
+<%--                    <input type="submit" class="searching" value="Search" style="margin-top: 30px;">--%>
+<%--                </from>--%>
+<%--                <!-- ---------------------search form---------------------- -->--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <div class="popup-btn-container">
             <button class="popup-btn" onclick="togglePopup3()"><i class="fas fa-plus"></i></button>
-            <button class="popup-btn" onclick="togglePopup4()"><i class="fas fa-search"></i></button>
+<%--            <button class="popup-btn" onclick="togglePopup4()"><i class="fas fa-search"></i></button>--%>
         </div>
     </div>
 </div>

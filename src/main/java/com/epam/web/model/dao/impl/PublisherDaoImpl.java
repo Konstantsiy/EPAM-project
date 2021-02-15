@@ -1,32 +1,29 @@
 package com.epam.web.model.dao.impl;
 
 import com.epam.web.model.dao.ClosableDao;
-import com.epam.web.model.dao.GenreDao;
-import com.epam.web.model.entity.Genre;
+import com.epam.web.model.dao.PublisherDao;
+import com.epam.web.model.entity.Publisher;
 import com.epam.web.model.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenreDaoImpl extends ClosableDao implements GenreDao {
+public class PublisherDaoImpl extends ClosableDao implements PublisherDao {
     private static final Logger logger = LogManager.getLogger(GenreDaoImpl.class);
-    private static final GenreDao instance = new GenreDaoImpl();
+    private static final PublisherDao instance = new PublisherDaoImpl();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private final String ADD_GENRE = "INSERT INTO genres (title) values (?)";
-    private final String FIND_ALL_GENRES = "SELECT * FROM genres";
-    private final String CHECK_GENRE = "SELECT * FROM genres WHERE ? = genres.title";
-    private final String DELETE_GENRE = "DELETE FROM genres WHERE ? = genres.id";
+    private final String ADD_PUBLISHER = "INSERT INTO publishers (title) VALUES (?)";
+    private final String CHECK_PUBLISHER = "SELECT * FROM publishers WHERE ? = publishers.title";
+    private final String DELETE_PUBLISHER = "DELETE FROM publishers WHERE ? = publishers.id";
+    private final String FIND_ALL_PUBLISHERS = "SELECT * FROM publishers";
 
-    private GenreDaoImpl() {}
+    private PublisherDaoImpl() {}
 
-    public static GenreDao getInstance() {
+    public static PublisherDao getInstance() {
         return instance;
     }
 
@@ -34,36 +31,12 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     public boolean exists(String title) {
         Connection connection = null;
         PreparedStatement statement = null;
-        ResultSet resultSet = null;
         boolean result = false;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(CHECK_GENRE);
+            statement = connection.prepareStatement(CHECK_PUBLISHER);
             statement.setString(1, title);
-            resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                result = true;
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-        } finally {
-            close(connection, statement, resultSet);
-        }
-        return result;
-    }
-
-    @Override
-    public boolean add(String title) {
-        logger.debug("adding genre in dao...");
-        Connection connection = null;
-        PreparedStatement statement = null;
-        boolean result = false;
-        try {
-            connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(ADD_GENRE);
-            statement.setString(1, title);
-            result = (statement.executeUpdate() == 1);
-            logger.debug("Genre " + title + " was added now");
+            result = statement.executeQuery().next();
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
@@ -73,29 +46,45 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     }
 
     @Override
-    public List<Genre> findAll() {
-        logger.debug("Getting all genres...");
-        List<Genre> genres = new ArrayList<>();
+    public boolean add(String title) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean result = false;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(ADD_PUBLISHER);
+            statement.setString(1, title);
+            result = (statement.executeUpdate() == 1);
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Publisher> findAll() {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        List<Publisher> publishers = new ArrayList<>();
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_ALL_GENRES);
+            statement = connection.prepareStatement(FIND_ALL_PUBLISHERS);
             resultSet = statement.executeQuery();
             while(resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String title = resultSet.getString(2);
-                Genre genre = new Genre(id, title);
-                logger.debug("Genre form db: " + genre);
-                genres.add(genre);
+                Publisher publisher = new Publisher(id, title);
+                publishers.add(publisher);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
             close(connection, statement, resultSet);
         }
-        return genres;
+        return publishers;
     }
 
     @Override
@@ -104,7 +93,7 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
         PreparedStatement statement = null;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(DELETE_GENRE);
+            statement = connection.prepareStatement(DELETE_PUBLISHER);
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {

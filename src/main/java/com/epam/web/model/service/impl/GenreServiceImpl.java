@@ -11,7 +11,6 @@ import java.util.List;
 
 public class GenreServiceImpl implements GenreService {
     private static final Logger logger = LogManager.getLogger(GenreServiceImpl.class);
-
     private final GenreDao genreDao = GenreDaoImpl.getInstance();
 
     public GenreServiceImpl() {}

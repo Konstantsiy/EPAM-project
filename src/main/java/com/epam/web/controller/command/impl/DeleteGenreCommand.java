@@ -24,8 +24,9 @@ public class DeleteGenreCommand implements Command {
     public String execute(HttpServletRequest request) {
         String page = PagePath.ADMIN_GENRES;
         String id = request.getParameter(RequestParam.ID);
-        logger.debug("Delete genre with id " + id);
+        logger.debug("Deleting genre with id " + id + "...");
         genreService.delete(Integer.parseInt(id));
+        logger.debug("Genre was deleted");
         List<Genre> existGenres = genreService.findAll();
         request.setAttribute("genres", existGenres);
         return page;

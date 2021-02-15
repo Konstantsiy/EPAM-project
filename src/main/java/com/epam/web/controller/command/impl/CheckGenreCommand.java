@@ -21,7 +21,6 @@ public class CheckGenreCommand implements Command {
     public String execute(HttpServletRequest request) {
         String title = request.getParameter(RequestParam.GENRE_TITLE);
         boolean exist = genreService.exists(title);
-        String result = exist ? "Unavailable" : "Available";
-        return result;
+        return exist ? "Unavailable" : "Available";
     }
 }

@@ -40,6 +40,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void delete(int id) {
-
+        authorDao.deleteById(id);
     }
 }
