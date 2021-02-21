@@ -102,4 +102,9 @@ public class PublisherDaoImpl extends ClosableDao implements PublisherDao {
             close(connection, statement);
         }
     }
+
+    @Override
+    public List<Publisher> convertResultSetToList(ResultSet resultSet) {
+        return null;
+    }
 }

@@ -40,7 +40,7 @@
         <br>
         <input type="submit" class="btn-login" value="${submitValue}">
         <div class="bottom-text"><fmt:message key="login.bottomText"/>
-            <a href="${pageContext.request.contextPath}/jsp/registration.jsp"><fmt:message key="login.href"/></a>
+            <a href="${pageContext.request.contextPath}/jsp/user/registration.jsp"><fmt:message key="login.href"/></a>
         </div>
     </form>
 </div>

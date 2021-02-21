@@ -73,16 +73,9 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     }
 
     @Override
-    public List<Genre> findAll() {
-        logger.debug("Getting all genres...");
+    public List<Genre> convertResultSetToList(ResultSet resultSet) {
         List<Genre> genres = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
         try {
-            connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_ALL_GENRES);
-            resultSet = statement.executeQuery();
             while(resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String title = resultSet.getString(2);
@@ -90,6 +83,25 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
                 logger.debug("Genre form db: " + genre);
                 genres.add(genre);
             }
+        } catch (SQLException e) {
+            logger.debug(e.getMessage());
+        }
+        return genres;
+    }
+
+    @Override
+    public List<Genre> findAll() {
+        logger.debug("Getting all genres...");
+        List<Genre> genres = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_ALL_GENRES);
+            logger.debug("getting result statement...");
+            resultSet = statement.executeQuery();
+           genres = convertResultSetToList(resultSet);
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {

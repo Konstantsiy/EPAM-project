@@ -20,7 +20,7 @@
         </div>
         <button><a href="#" class="simple-link"><fmt:message key="header.about"/></a></button>
         <button><a href="#" class="simple-link"><fmt:message key="header.cart"/></a></button>
-        <button><a href="${pageContext.request.contextPath}/jsp/login.jsp" class="simple-link"><fmt:message key="header.action1"/></a></button>
+        <button><a href="${pageContext.request.contextPath}/jsp/user/login.jsp" class="simple-link"><fmt:message key="header.action1"/></a></button>
     </div>
     <div class="lang-menu">
         <div class="selected-lang">

@@ -141,4 +141,9 @@ public class UserDaoImpl extends ClosableDao implements UserDao {
     public void deleteById(int id) {
 
     }
+
+    @Override
+    public List<User> convertResultSetToList(ResultSet resultSet) {
+        return null;
+    }
 }

@@ -10,7 +10,7 @@
     <i class="far">o</i>
     <div class="err2">4</div>
     <div class="msg">Never existed in the first place?
-        <p>Let's <a href="${pageContext.request.contextPath}/jsp/home.jsp">turn</a> this page.</p>
+        <p>Let's <a href="${pageContext.request.contextPath}/jsp/user/home.jsp">turn</a> this page.</p>
     </div>
 </div>
 <img src="${pageContext.request.contextPath}/images/error404.png" class="account-image">

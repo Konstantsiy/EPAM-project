@@ -81,25 +81,30 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
         return result;
     }
 
-    private List<Author> convertResultSetToList(ResultSet resultSet) throws SQLException, IOException {
+    @Override
+    public List<Author> convertResultSetToList(ResultSet resultSet) {
         List<Author> authors = new ArrayList<>();
-        while(resultSet.next()) {
-            int id = resultSet.getInt(1);
-            Blob blob = resultSet.getBlob(2);
-            String name = resultSet.getString(3);
-            String surname = resultSet.getString(4);
-            InputStream inputStream = blob.getBinaryStream();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
+        try {
+            while(resultSet.next()) {
+                int id = resultSet.getInt(1);
+                Blob blob = resultSet.getBlob(2);
+                String name = resultSet.getString(3);
+                String surname = resultSet.getString(4);
+                InputStream inputStream = blob.getBinaryStream();
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                byte[] imageBytes = outputStream.toByteArray();
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                inputStream.close();
+                outputStream.close();
+                authors.add(new Author(id, name, surname, base64Image));
             }
-            byte[] imageBytes = outputStream.toByteArray();
-            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-            inputStream.close();
-            outputStream.close();
-            authors.add(new Author(id, name, surname, base64Image));
+        } catch (SQLException | IOException e) {
+            logger.debug(e.getMessage());
         }
         return authors;
     }
@@ -115,7 +120,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
             statement = connection.prepareStatement(FIND_ALL_AUTHORS);
             resultSet = statement.executeQuery();
             authors = convertResultSetToList(resultSet);
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
             close(connection, statement, resultSet);
