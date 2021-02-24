@@ -3,10 +3,8 @@ package com.epam.web.model.entity;
 public enum Cover {
     HARD ("Hard cover"),
     SOFT ("Soft cover"),
-    STAPLING ("Stapling cover"),
     FRENCH ("French cover"),
-    TYPOGRAPHIC ("Typographic cover"),
-    THERMAL ("Thermal cover");
+    TYPOGRAPHIC ("Typographic cover");
 
     private final String title;
 

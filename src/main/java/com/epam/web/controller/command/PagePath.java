@@ -10,6 +10,7 @@ public class PagePath {
     public static final String ADMIN_USERS = "/jsp/admin/admin_users.jsp";
     public static final String ADMIN_GENRES = "/jsp/admin/admin_genres.jsp";
     public static final String ADMIN_PUBLISHERS = "/jsp/admin/admin_publishers.jsp";
+    public static final String ADMIN_BOOKS = "/jsp/admin/admin_books.jsp";
 
     private PagePath() {}
 }

@@ -349,7 +349,7 @@ section img {
     height: 30px;
     width: 120px;
     font-size: 18px;
-    background: rgb(255 255 255 / 71%);
+    background: rgb(255 255 255);
     color: #ff0000;
     border: none;
     transition: 0.3s ease;
@@ -500,7 +500,7 @@ ul{
     /*margin-top: 100px;*/
     display: flex;
     width: 850px;
-    box-shadow: 0 0 100px rgb(255 0 0 / 16%);
+    box-shadow: 0 0 100px rgb(255 0 0);
 }
 
 .intro-book-img {
@@ -521,7 +521,7 @@ ul{
     position: absolute;
     left: 40%;
     top: 540px;
-    bottom: 20;
+    bottom: 20px;
     transform: translate(-50% ,-50%);
 }
 

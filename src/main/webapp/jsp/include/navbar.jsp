@@ -1,12 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
-<fmt:setBundle basename="locale.pageContent"/>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/language.css">
-<%--------------------------------------------------------------------------------------------------%>
 <div class="navbar">
     <div class="logo"><img class="logo-img" src="${pageContext.request.contextPath}/images/books-logo.png" alt=""></div>
     <div class="box">

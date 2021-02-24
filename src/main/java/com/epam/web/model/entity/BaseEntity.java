@@ -1,9 +1,13 @@
 package com.epam.web.model.entity;
 
-public abstract class BaseEntity {
-    private final int id;
+import com.epam.web.model.dao.BaseDao;
 
-    public BaseEntity(int id) {
+public abstract class BaseEntity {
+    protected int id;
+
+    protected BaseEntity() {}
+
+    protected BaseEntity(int id) {
         this.id = id;
     }
 

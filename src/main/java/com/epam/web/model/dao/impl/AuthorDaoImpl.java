@@ -20,7 +20,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
     private static final AuthorDao instance = new AuthorDaoImpl();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private final String ADD_BOOK = "INSERT INTO authors (image, name, surname, bio) values (?, ?, ?, ?)";
+    private final String ADD_AUTHOR = "INSERT INTO authors (image, name, surname, bio) VALUES (?, ?, ?, ?)";
     private final String CHECK_AUTHOR = "SELECT * FROM authors WHERE ? = authors.name AND ? = authors.surname";
     private final String FIND_ALL_AUTHORS = "SELECT authors.id, authors.image, authors.name, authors.surname FROM authors";
     private final String DELETE_AUTHOR = "DELETE FROM authors WHERE ? = authors.id";
@@ -38,7 +38,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
         int result = 0;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(ADD_BOOK);
+            statement = connection.prepareStatement(ADD_AUTHOR);
 
             InputStream image = imagePart.getInputStream();
 

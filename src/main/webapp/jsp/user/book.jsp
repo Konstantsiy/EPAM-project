@@ -1,51 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/bookstore/epam/home.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-
-    <link href="https://fonts.googleapis.com/css2?family=Catamaran&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Merienda+One&family=Patrick+Hand&family=Sansita+Swashed&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+    <jsp:include page="../include/links.jsp"></jsp:include>
     <title>Document</title>
 </head>
 <body>
 <!-- ---------------------------navbar--------------------------------- -->
-<div class="navbar">
-    <div class="logo"><img class="logo-img" src="/bookstore/epam/images/books-logo.png" alt=""></div>
-    <div class="box">
-        <i class="fa fa-search" aria-hidden="true"></i>
-        <input type="text" name="" placeholder="Search book...">
-    </div>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-    <div class="dropdown">
-        <button class="dropbtn"><i class="fa fa-user-circle" aria-hidden="true"></i></button>
-        <div class="dropdown-content">
-            <a href="#">Sign In</a>
-            <a href="#">Sign Up</a>
-        </div>
-    </div>
-    <div class="dropdown">
-        <button class="dropbtn"><i class="fa fa-language" aria-hidden="true"></i></button>
-        <div class="dropdown-content">
-            <a href="#">English</a>
-            <a href="#">Русский</a>
-        </div>
-    </div>
-</div>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 <!-- -------------------------intro---------------------------------- -->
 <div class="intro">
     <div class="intro-content">
         <div class="book-cover">
             <div class="book-img">
-                <img class="intro-book-img" src="/bookstore/epam/images/it.jpg" alt="">
+                <img class="intro-book-img" src="${pageContext.request.contextPath}/images/it.jpg" alt="">
             </div>
             <div class="book-content">
                 <div class="book-title">Book Title</div>
@@ -56,7 +23,7 @@
                         <div class="popup" id="popup">
                             <div class="popup-inner">
                                 <div class="photo">
-                                    <img src="/bookstore/epam/images/JKRowling.jpg" alt="">
+                                    <img src="${pageContext.request.contextPath}/images/JKRowling.jpg" alt="">
                                 </div>
                                 <div class="text">
                                     <h1>Lorem ipsum dolor sit amet</h1>

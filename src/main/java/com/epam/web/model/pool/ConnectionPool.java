@@ -12,8 +12,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class ConnectionPool {
     private final Logger logger = LogManager.getLogger(ConnectionPool.class);
 
-    private static ConnectionPool instance = new ConnectionPool();
-
+    private static final ConnectionPool instance = new ConnectionPool();
     private BlockingQueue<ProxyConnection> freeConnections;
     private Queue<ProxyConnection> givenConnections;
     private final int DEFAULT_POOL_SIZE = 12;
@@ -46,7 +45,7 @@ public class ConnectionPool {
         return instance;
     }
 
-    public Connection getConnection() {
+    public ProxyConnection getConnection() {
         ProxyConnection proxyConnection = null;
         try {
             proxyConnection = freeConnections.take();
@@ -58,12 +57,12 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) {
-//        if(connection.getClass() != this.getClass()) {
-//
-//        }
-        ProxyConnection proxyConnection = (ProxyConnection) connection;
-        givenConnections.remove(proxyConnection);
-        freeConnections.offer(proxyConnection);
+        if (connection instanceof ProxyConnection && givenConnections.remove(connection)) {
+            freeConnections.offer((ProxyConnection) connection);
+            logger.info("Connection has been released");
+        } else {
+            logger.error("Connection release failed");
+        }
     }
 
     public void destroyPool() {
@@ -85,41 +84,5 @@ public class ConnectionPool {
                 logger.error(e.getMessage());
             }
         });
-    }
-
-    public void close(Connection connection, Statement statement, ResultSet resultSet) {
-        close(connection);
-        close(statement);
-        close(resultSet);
-    }
-
-    public void close(Statement statement) {
-        if(statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
-            }
-        }
-    }
-
-    public void close(ResultSet resultSet) {
-        if(resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
-            }
-        }
-    }
-
-    public void close(Connection connection) {
-        if(connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
-            }
-        }
     }
 }

@@ -48,39 +48,13 @@
                     </label>
                     <div id="result_surname" class="popup-result no-visible"></div>
                     <label for="bio">
-                        <textarea class="bio_rus" placeholder="Author biography" name="author_bio" id="bio" cols="20" rows="8"></textarea>
+                        <textarea class="bio" placeholder="Author biography" name="author_bio" id="bio" cols="20" rows="8"></textarea>
                     </label>
                     <input id="btn-add" type="submit" class="searching" value="Append" style="margin-top: 20px;">
                 </form>
                 <!-- --------------------add from for authors------------------------- -->
             </div>
         </div>
-<%--        <div class="popup" id="popup-4">--%>
-<%--            <div class="overlay"></div>--%>
-<%--            <div class="content">--%>
-<%--                <div class="close-btn" onclick="togglePopup4()">&times;</div>--%>
-<%--                <h1>Search 4</h1>--%>
-<%--                <!-- ---------------------search form for authors---------------------- -->--%>
-<%--                <label for="name">--%>
-<%--                    <input type="text" placeholder="Author name" name="name" id="name">--%>
-<%--                </label>--%>
-<%--                <label for="surname">--%>
-<%--                    <input type="text" placeholder="Author surname" name="surname" id="surname">--%>
-<%--                </label>--%>
-
-<%--                <from class="search-book">--%>
-<%--                    <select name="genre" id="genre">--%>
-<%--                        <option value="Horror">Horror</option>--%>
-<%--                        <option value="Fiction">Fiction</option>--%>
-<%--                        <option value="Adventure">Adventure</option>--%>
-<%--                        <option value="Fantastic">Fantastic</option>--%>
-<%--                    </select>--%>
-
-<%--                    <input type="submit" class="searching" value="Search" style="margin-top: 30px;">--%>
-<%--                </from>--%>
-<%--                <!-- ---------------------search form---------------------- -->--%>
-<%--            </div>--%>
-<%--        </div>--%>
         <div class="popup-btn-container">
             <button class="popup-btn" onclick="togglePopup3()"><i class="fas fa-plus"></i></button>
 <%--            <button class="popup-btn" onclick="togglePopup4()"><i class="fas fa-search"></i></button>--%>

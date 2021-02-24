@@ -19,49 +19,54 @@
                 <th>Size</th>
                 <th>Price</th>
                 <th>Year</th>
-                <th>Publisher</th>
                 <th></th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>[picture]</td>
-                <td>IT</td>
-                <td>Stephen King</td>
-                <td>Horror</td>
-                <td>Hard</td>
-                <td>117</td>
-                <td>17 $</td>
-                <td>1986</td>
-                <td>Издательский дом "Питер"</td>
-                <td><a href="#" class="myButton">edit</a></td>
-                <td><a href="#" class="myButton">delete</a></td>
-            </tr>
+            <c:forEach items="${books}" var="book">
+                <tr>
+                    <td><img src="data:image/jpg;base64,${book.image}" width="60" height="75"></td>
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>
+                        <c:forEach items="${book.genres}" var="genre">
+                            <p>${genre.title}</p>
+                        </c:forEach>
+                    </td>
+                    <td>${book.cover}</td>
+                    <td>${book.size}</td>
+                    <td>${book.price} $</td>
+                    <td>${book.year}</td>
+                    <td><a href="#" class="myButton">edit</a></td>
+                    <td><a href="#" class="myButton">delete</a></td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
         <div class="popup" id="popup-1">
             <div class="overlay"></div>
-            <div class="content" style="height: 670px; top: 170%;">
+            <div class="content" style="height: 740px; top: 170%;">
                 <div class="close-btn" onclick="togglePopup1()">&times;</div>
                 <!-- --------------------add from for books------------------------- -->
                 <h1>What are we going to read?</h1>
                 <form class="add-form" action="upload" enctype="multipart/form-data" method="post">
+                    <input type="hidden" name="command" value="add_book">
                     <input type="file" name="book_image" />
                     <label for="book_title">
-                        <input type="text" placeholder="Book title" id="book_title" name="book_title">
+                        <input type="text" placeholder="Book title" id="book_title" name="book_title" required>
                     </label>
                     <label for="book_size">
-                        <input type="number" placeholder="Pages number" name="book_size" id="book_size">
+                        <input type="number" placeholder="Pages number" name="book_size" id="book_size" required>
                     </label>
                     <select name="book_author" id="book_author">
-                        <option value="Author1">Author1</option>
+                        <option value="auth_id">Author Surname1</option>
                         <option value="Author2">Author2</option>
                         <option value="Author3">Author3</option>
                         <option value="Author4">Author4</option>
                     </select>
                     <div class="selector-genres">
-                        <select name="book_genre1" id="book_genre1">
+                        <select name="book_genre1" id="book_genre1" required>
                             <option value="Genre1">Genre1</option>
                             <option value="Genre2">Genre2</option>
                             <option value="Genre3">Genre3</option>
@@ -80,18 +85,16 @@
                             <option value="Genre4">Genre4</option>
                         </select>
                     </div>
-                    <select name="book_cover" id="book_cover">
+                    <select name="book_cover" id="book_cover" required>
                         <option value="Cover1">Cover1</option>
-                        <option value="Cover1">Cover2</option>
-                        <option value="Cover1">Cover3</option>
-                    </select>
-                    <select name="book_publisher" id="book_publisher">
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
+                        <option value="Cover2">Cover2</option>
+                        <option value="Cover3">Cover3</option>
                     </select>
                     <label for="book_p_year">
-                        <input type="number" placeholder="Publishing year" id="book_p_year" name="book_p_year">
+                        <input type="number" placeholder="Publishing year" id="book_p_year" name="book_p_year" required>
+                    </label>
+                    <label for="book_desc">
+                        <textarea class="desc" placeholder="Book description" name="book_desc" id="book_desc" cols="20" rows="8"></textarea>
                     </label>
                     <input type="submit" class="searching" value="Append" style="margin-top: 20px;">
                 </form>
@@ -121,11 +124,6 @@
                         <option value="Cover1">Cover1</option>
                         <option value="Cover1">Cover2</option>
                         <option value="Cover1">Cover3</option>
-                    </select>
-                    <select name="publisher" id="publisher">
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
                     </select>
                     <div class="selector">
                         <label for="year_from">
