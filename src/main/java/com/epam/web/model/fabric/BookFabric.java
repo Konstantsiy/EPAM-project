@@ -10,6 +10,7 @@ import java.util.Optional;
 public class BookFabric {
     private static final Logger logger = LogManager.getLogger(BookFabric.class);
     private static final int DEFAULT_ID_VALUE = 0;
+    private static final String DEFAULT_IMAGE_VALUE = "";
 
     public static Optional<Book> createBook(String tile, String price, String authorId, String genreId1, String genreId2, String genreId3, String cover, String year, String size, String desc, String image) {
         try {
