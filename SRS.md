@@ -23,7 +23,7 @@ The following list of function descriptions explains the major features of the O
    - Delete from shopping cart
    - Payment for the order
 3. Admin:
-   - Add/delete/edit books/authors/genres
+   - CRUD operations for books/authors/genres
    - Block/unblock users
    - Search for the needed stuff
 
