@@ -19,6 +19,7 @@ The following list of function descriptions explains the major features of the O
    - View book descriptions and authors
    - Logout
 2. Users (registered):
+   - Same as visitors
    - Add to shopping cart
    - Delete from shopping cart
    - Payment for the order
