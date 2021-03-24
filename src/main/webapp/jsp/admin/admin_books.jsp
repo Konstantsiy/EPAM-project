@@ -5,7 +5,7 @@
     <jsp:include page="admin_head.jsp" />
 </head>
 <body>
-<div class="wrapper">
+<div class="wra pper">
     <jsp:include page="admin_sidebar.jsp" />
     <div class="table2" id="table2">
         <table class="styled-table">
@@ -30,9 +30,10 @@
                     <td>${book.title}</td>
                     <td>${book.author}</td>
                     <td>
-                        <c:forEach items="${book.genres}" var="genre">
-                            <p>${genre.title}</p>
-                        </c:forEach>
+                        ${book.genre}
+<%--                        <c:forEach items="${book.genres}" var="genre">--%>
+<%--                            <p>${genre.title}</p>--%>
+<%--                        </c:forEach>--%>
                     </td>
                     <td>${book.cover}</td>
                     <td>${book.size}</td>
@@ -66,19 +67,7 @@
                         <option value="Author4">Author4</option>
                     </select>
                     <div class="selector-genres">
-                        <select name="book_genre1" id="book_genre1" required>
-                            <option value="Genre1">Genre1</option>
-                            <option value="Genre2">Genre2</option>
-                            <option value="Genre3">Genre3</option>
-                            <option value="Genre4">Genre4</option>
-                        </select>
-                        <select name="book_genre2" id="book_genre2">
-                            <option value="Genre1">Genre1</option>
-                            <option value="Genre2">Genre2</option>
-                            <option value="Genre3">Genre3</option>
-                            <option value="Genre4">Genre4</option>
-                        </select>
-                        <select name="book_genre3" id="book_genre3">
+                        <select name="book_genre_title" id="book_genre_title" required>
                             <option value="Genre1">Genre1</option>
                             <option value="Genre2">Genre2</option>
                             <option value="Genre3">Genre3</option>
@@ -108,22 +97,17 @@
                 <h1>Where are the books, Lebowski?</h1>
                 <!-- ---------------------search form for books---------------------- -->
                 <from class="search-book">
-                    <select name="_genre" id="_genre">
+                    <select name="search_genre" id="search_genre">
                         <option value="Horror">Horror</option>
                         <option value="Fiction">Fiction</option>
                         <option value="Adventure">Adventure</option>
                         <option value="Fantastic">Fantastic</option>
                     </select>
-                    <select name="author" id="author">
+                    <select name="search_author" id="search_author">
                         <option value="Author1">Author1</option>
                         <option value="Author2">Author2</option>
                         <option value="Author3">Author3</option>
                         <option value="Author4">Author4</option>
-                    </select>
-                    <select name="cover" id="cover">
-                        <option value="Cover1">Cover1</option>
-                        <option value="Cover1">Cover2</option>
-                        <option value="Cover1">Cover3</option>
                     </select>
                     <div class="selector">
                         <label for="year_from">

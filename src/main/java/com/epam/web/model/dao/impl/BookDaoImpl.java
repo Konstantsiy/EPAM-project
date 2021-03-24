@@ -4,12 +4,14 @@ import com.epam.web.model.dao.BookDao;
 import com.epam.web.model.dao.ClosableDao;
 import com.epam.web.model.entity.Book;
 import com.epam.web.model.entity.Cover;
+import com.epam.web.model.entity.Genre;
 import com.epam.web.model.pool.ConnectionPool;
 import com.epam.web.util.TypeConverter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.io.InputStream;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +22,8 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
     private static final BookDao instance = new BookDaoImpl();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static final StringBuilder ADD_BOOK = new StringBuilder()
-        .append("INSERT INTO books ")
-        .append("(title, size, price, p_year, image, author_id, cover, description) ")
-        .append("VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    private static final String SET_BOOK_GENRE_LINK = "INSERT INTO books_genres (genre_id, book_id) VALUES (?, ?)";
+    private static final String ADD_BOOK = "INSERT INTO books (title, size, price, p_year, image, genre, cover, description, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String CHECK_BOOK = "SELECT * FROM books WHERE ? = books.title";
     private static final String FIND_ALL_BOOKS = "SELECT * FROM books";
     private static final String DELETE_BOOK = "DELETE FROM books WHERE ? = books.id";
 
@@ -35,62 +34,48 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
     }
 
     @Override
-    public boolean add(String title, int size, double price, int year, InputStream image,
-                       int authorId, List<Integer> genresId, String cover, String desc) {
+    public boolean add(Book book, Part imagePart) {
         Connection connection = null;
         PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        boolean result = true;
+        int result = 0;
         try {
             connection = connectionPool.getConnection();
-            connection.setAutoCommit(false);
-            statement = connection.prepareStatement(ADD_BOOK.toString(), Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, title);
-            statement.setInt(2, size);
-            statement.setDouble(3, price);
-            statement.setInt(4, year);
-            statement.setBlob(5, image);
-            statement.setInt(6, authorId);
-            statement.setString(7, cover);
-            statement.setString(8, desc);
-            statement.executeUpdate();
-            resultSet = statement.getGeneratedKeys();
-            int bookId = 0;
-            if(resultSet.next()) {
-                bookId = resultSet.getInt(1);
-            } else {
-                result = false;
-            }
-            for(int i = 0; i < genresId.size(); i++) {
-                statement = connection.prepareStatement(SET_BOOK_GENRE_LINK);
-                statement.setInt(1, i);
-                statement.setInt(2, bookId);
-                statement.executeUpdate();
-            }
-            connection.commit();
-        } catch (SQLException e) {
-            result = false;
-            try {
-                connection.rollback();
-            } catch (SQLException throwable) {
-                logger.error(throwable.getMessage()); // todo
-            }
+            statement = connection.prepareStatement(ADD_BOOK);
+            statement.setString(1, book.getTitle());
+            statement.setInt(2, book.getSize());
+            statement.setDouble(3, book.getPrice());
+            statement.setInt(4, book.getYear());
+            statement.setBlob(5, imagePart.getInputStream());
+            statement.setInt(6, book.getAuthorId());
+            statement.setString(7, book.getCover());
+            statement.setString(8, book.getDescription());
+            result = statement.executeUpdate();
+        } catch (SQLException | IOException e) {
+            logger.error(e.getMessage());
         } finally {
-            if(connection != null) {
-                try {
-                    connection.setAutoCommit(true);
-                } catch (SQLException e) {
-                    logger.error(e.getMessage());
-                }
-            }
-            close(connection, statement, resultSet);
+            close(connection, statement, null);
         }
-        return result;
+        return result == 1;
     }
 
     @Override
     public boolean exists(String title) {
-        return false;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean result = false;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(CHECK_BOOK);
+            statement.setString(1, title);
+            resultSet = statement.executeQuery();
+            result = resultSet.next();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return result;
     }
 
     @Override
@@ -109,6 +94,7 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
                 String cover = resultSet.getString(8);
                 Cover bookCover = Cover.valueOf(cover);
                 String desc = resultSet.getString(9);
+                Genre genre = Genre.valueOf(resultSet.getString(10));
                 Book book = new Book.Builder()
                         .withId(id)
                         .withTitle(title)
@@ -119,6 +105,7 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
                         .withAuthorId(authorId)
                         .withCover(bookCover)
                         .withDesc(desc)
+                        .withGenre(genre)
                         .build();
                 books.add(book);
             }
@@ -154,6 +141,7 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(DELETE_BOOK);
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());

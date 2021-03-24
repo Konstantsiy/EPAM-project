@@ -3,11 +3,9 @@ package com.epam.web.model.service;
 import com.epam.web.model.entity.Book;
 
 import javax.servlet.http.Part;
-import java.util.List;
+import java.sql.SQLException;
 
 public interface BookService extends BaseService<Book> {
-    boolean add(String title, String size, String price,
-                String year, Part imagePart, String authorId,
-                List<String> genresId, String cover, String desc);
+    boolean add(Book book, Part imagePart);
     boolean exists(String title);
 }

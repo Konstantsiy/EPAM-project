@@ -2,7 +2,7 @@ package com.epam.web.model.service.impl;
 
 import com.epam.web.model.dao.GenreDao;
 import com.epam.web.model.dao.impl.GenreDaoImpl;
-import com.epam.web.model.entity.Genre;
+import com.epam.web.model.entity.Genre1;
 import com.epam.web.model.service.GenreService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -30,7 +30,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public List<Genre> findAll() {
+    public List<Genre1> findAll() {
         return genreDao.findAll();
     }
 

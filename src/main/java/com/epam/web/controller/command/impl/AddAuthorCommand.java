@@ -38,6 +38,7 @@ public class AddAuthorCommand implements Command {
             logger.error(e.getMessage());
             return page;
         }
+
         logger.debug("Params form jsp: " + name + " " + surname);
         if(authorService.add(filePart, name, surname, bio)) {
             logger.debug("Added new author: " + name + " " + surname);

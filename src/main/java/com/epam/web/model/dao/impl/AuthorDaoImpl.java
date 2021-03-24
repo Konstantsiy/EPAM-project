@@ -70,9 +70,7 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
             statement.setString(2, surname);
 
             resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                result = true;
-            }
+            result = resultSet.next();
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {

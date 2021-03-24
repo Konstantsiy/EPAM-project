@@ -1,11 +1,9 @@
 package com.epam.web.model.entity;
 
-import java.util.List;
-
 public class Book extends BaseEntity {
     private String title;
     private int authorId;
-    private List<Genre> genres;
+    private Genre genre;
     private int size;
     private String image;
     private Cover cover;
@@ -25,8 +23,8 @@ public class Book extends BaseEntity {
         return authorId;
     }
 
-    public List<Genre> getGenres() {
-        return genres;
+    public Genre getGenre() {
+        return genre;
     }
 
     public int getSize() {
@@ -59,7 +57,7 @@ public class Book extends BaseEntity {
                 Double.compare(book.price, price) == 0 &&
                 title != null && title.equals(book.title) &&
                 authorId == book.authorId &&
-                genres.equals(book.genres) &&
+                genre.getTitle().equals(book.genre.getTitle()) &&
                 cover == book.cover;
     }
 
@@ -70,7 +68,7 @@ public class Book extends BaseEntity {
         result += 31 * 17 + Integer.hashCode(size);
         result += 31 * 17 + Integer.hashCode(year);
         result += 31 * 17 + Integer.hashCode(authorId);
-        result += 31 * 17 + genres.hashCode();
+        result += 31 * 17 + genre.getTitle().hashCode();
         result += 31 * 17 + Double.hashCode(price);
         return result;
     }
@@ -114,6 +112,11 @@ public class Book extends BaseEntity {
 
         public Builder withAuthorId(int authorId) {
             newBook.authorId = authorId;
+            return this;
+        }
+
+        public Builder withGenre(Genre genre) {
+            newBook.genre = genre;
             return this;
         }
 

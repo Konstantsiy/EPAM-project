@@ -8,9 +8,9 @@ public class RequestParam {
     public static final String BOOK_TITLE = "book_title";
     public static final String BOOK_SIZE = "book_size";
     public static final String BOOK_AUTHOR_ID = "book_author";
-    public static final String BOOK_GENRE1_ID = "book_genre1";
-    public static final String BOOK_GENRE2_ID = "book_genre2";
-    public static final String BOOK_GENRE3_ID = "book_genre3";
+    public static final String BOOK_GENRE_TITLE = "book_title";
+//    public static final String BOOK_GENRE2_ID = "book_genre2";
+//    public static final String BOOK_GENRE3_ID = "book_genre3";
     public static final String BOOK_COVER = "book_cover";
 //    public static final String BOOK_PUBLISHER_ID = "book_publisher";
     public static final String BOOK_PUBLISHING_YEAR = "book_p_year";

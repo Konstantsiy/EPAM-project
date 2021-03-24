@@ -2,7 +2,7 @@ package com.epam.web.model.dao.impl;
 
 import com.epam.web.model.dao.ClosableDao;
 import com.epam.web.model.dao.GenreDao;
-import com.epam.web.model.entity.Genre;
+import com.epam.web.model.entity.Genre1;
 import com.epam.web.model.pool.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -73,13 +73,13 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     }
 
     @Override
-    public List<Genre> convertResultSetToList(ResultSet resultSet) {
-        List<Genre> genres = new ArrayList<>();
+    public List<Genre1> convertResultSetToList(ResultSet resultSet) {
+        List<Genre1> genres = new ArrayList<>();
         try {
             while(resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String title = resultSet.getString(2);
-                Genre genre = new Genre(id, title);
+                Genre1 genre = new Genre1(id, title);
                 logger.debug("Genre form db: " + genre);
                 genres.add(genre);
             }
@@ -90,9 +90,9 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     }
 
     @Override
-    public List<Genre> findAll() {
+    public List<Genre1> findAll() {
         logger.debug("Getting all genres...");
-        List<Genre> genres = null;
+        List<Genre1> genres = null;
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;

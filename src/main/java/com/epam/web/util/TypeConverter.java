@@ -33,7 +33,6 @@ public class TypeConverter {
     public static String blobToString(Blob blob) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte[] imageBytes = outputStream.toByteArray();
-        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-        return base64Image;
+        return Base64.getEncoder().encodeToString(imageBytes);
     }
 }

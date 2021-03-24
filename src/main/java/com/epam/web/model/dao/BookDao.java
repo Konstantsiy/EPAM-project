@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface BookDao extends BaseDao<Book>  {
-    boolean add(String title, int size, double price, int year, InputStream image,
-                int authorId, List<Integer> genresId, String cover, String desc) throws SQLException;
+    boolean add(Book book, Part imagePart);
     boolean exists(String title);
 }
