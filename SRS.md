@@ -19,17 +19,18 @@ The following list of function descriptions explains the major features of the O
    - View book descriptions and authors
    - Logout
 2. Users (registered):
+   - Same as visitors
    - Add to shopping cart
    - Delete from shopping cart
    - Payment for the order
 3. Admin:
-   - Add/delete/edit books/authors/genres
+   - CRUD operations for books/authors/genres
    - Block/unblock users
    - Search for the needed stuff
 
 ## 2.3. Operating Environment
 Bookshop will primarily act as a web service that will be supported on web browsers including Google Chrome and Firefox 18. Underlying operating system is Windows or Linux.
-Bookstore will be running on local host that has [Java 8](https://www.djangoproject.com/download/), [Tomcat](https://www.python.org/downloads/), and [MySQL](https://dev.mysql.com/downloads/) running on it.
+Bookstore will be running on local host that has [Java 8](https://www.java.com/ru/download/manual.jsp), [Apache Tomcat](http://tomcat.apache.org/), and [MySQL](https://dev.mysql.com/downloads/) running on it.
 # 3. Requirement Specifications 
 ## 3.1 User Requirements
 Users of the website must know how to navigate in a website. The initial users of our software front end will be people who are familiar with navigating a web browser and managing a desktop or laptop.
