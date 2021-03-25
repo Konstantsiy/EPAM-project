@@ -15,16 +15,16 @@ public class SessionLocaleFilter implements Filter {
     public void init(FilterConfig filterConfig) {}
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-
-        if (req.getParameter("sessionLocale") != null) {
-            req.getSession(true).setAttribute("locale", req.getParameter("sessionLocale"));
-            logger.info("change locale " + "session ID: " + req.getSession().getId());
-        } else {
-            logger.info("init locale");
-            req.getSession(true).setAttribute("locale", "en");
-        }
-        chain.doFilter(request, response);
+//        HttpServletRequest req = (HttpServletRequest) request;
+//
+//        if (req.getParameter("sessionLocale") != null) {
+//            req.getSession(true).setAttribute("locale", req.getParameter("sessionLocale"));
+//            logger.info("change locale " + "session ID: " + req.getSession().getId());
+//        } else {
+//            logger.info("init locale");
+//            req.getSession(true).setAttribute("locale", "en");
+//        }
+//        chain.doFilter(request, response);
     }
 
     public void destroy() {}

@@ -1,5 +1,8 @@
 package com.epam.web.model.entity;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Cover {
     HARD ("Hard cover"),
     SOFT ("Soft cover"),
@@ -14,6 +17,10 @@ public enum Cover {
 
     public String getTitle() {
         return title;
+    }
+
+    public static List<Cover> getStuff() {
+        return Arrays.asList(Cover.values());
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.epam.web.model.entity;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum Genre {
     HORROR("horror"),
     ADVENTURE("adventure"),
@@ -21,6 +25,9 @@ public enum Genre {
         return title;
     }
 
+    public static List<Genre> getStuff() {
+        return Arrays.asList(Genre.values());
+    }
     @Override
     public String toString() {
         return title;

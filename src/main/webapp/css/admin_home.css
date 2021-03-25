@@ -124,7 +124,7 @@ body{
 .table2 {
     left: auto;
     right: auto;
-    padding-left: 250px;
+    padding-left: 450px;
     display: flex;
 }
 
@@ -263,7 +263,7 @@ body{
 
 .popup.active .content {
     position: absolute;
-    margin-top: 180px;
+    margin-top: 210px;
     margin-left: 40px;
     transition:all 300ms ease-in-out;
     transform:translate(-50%,-50%) scale(1);

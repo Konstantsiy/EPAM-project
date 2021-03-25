@@ -88,8 +88,10 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
                 int size = resultSet.getInt(3);
                 double price = resultSet.getDouble(4);
                 int year = resultSet.getInt(5);
+
                 Blob blob = resultSet.getBlob(6);
                 String base64Image = TypeConverter.blobToString(blob);
+
                 int authorId = resultSet.getByte(7);
                 String cover = resultSet.getString(8);
                 Cover bookCover = Cover.valueOf(cover);

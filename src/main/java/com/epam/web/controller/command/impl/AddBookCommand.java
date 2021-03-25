@@ -6,6 +6,7 @@ import com.epam.web.controller.command.RequestParam;
 import com.epam.web.model.entity.Book;
 import com.epam.web.model.fabric.BookFabric;
 import com.epam.web.model.service.BookService;
+import com.epam.web.model.service.impl.BookServiceImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -20,8 +21,8 @@ public class AddBookCommand implements Command {
     private static final Logger logger = LogManager.getLogger(AddBookCommand.class);
     private final BookService bookService;
 
-    public AddBookCommand(BookService bookService) {
-        this.bookService = bookService;
+    public AddBookCommand() {
+        this.bookService = new BookServiceImpl();
     }
 
     @Override
@@ -30,7 +31,7 @@ public class AddBookCommand implements Command {
 
         String title = request.getParameter(RequestParam.BOOK_TITLE);
         String authorId = request.getParameter(RequestParam.BOOK_AUTHOR_ID);
-        String genreTitle = request.getParameter(RequestParam.BOOK_GENRE_TITLE);
+        String genreTitle = request.getParameter(RequestParam.BOOK_GENRE);
         String cover = request.getParameter(RequestParam.BOOK_COVER);
         String year = request.getParameter(RequestParam.BOOK_PUBLISHING_YEAR);
         String size = request.getParameter(RequestParam.BOOK_SIZE);
@@ -43,6 +44,9 @@ public class AddBookCommand implements Command {
         } catch (ServletException | IOException e) {
             logger.error(e.getMessage());
         }
+
+        logger.debug("genre: " + genreTitle + "\t authorId: " + authorId);
+
         Optional<Book> bookOptional = BookFabric.createBook(title, price, authorId, genreTitle, cover, year, size, desc, "");
         if(bookOptional.isPresent()) {
             if(bookService.add(bookOptional.get(), imagePart)) {

@@ -10,19 +10,18 @@ public enum CommandType {
     ADMIN_LOGIN(new LoginCommand(true)),
     ADD_AUTHOR(new AddAuthorCommand()),
     ADD_GENRE(new AddGenreCommand()),
-    ADD_PUBLISHER(new AddPublisherCommand()),
+    ADD_BOOK(new AddBookCommand()),
 
     VIEW_ALL_AUTHORS(new ViewAuthorsCommand()),
     VIEW_ALL_USERS(new ViewUsersCommand()),
     VIEW_ALL_GENRES(new ViewGenresCommand()),
-    VIEW_ALL_PUBLISHERS(new ViewPublishersCommand()),
+    VIEW_ALL_BOOKS(new ViewBooksCommand()),
 
     DELETE_GENRE(new DeleteGenreCommand()),
     DELETE_AUTHOR(new DeleteAuthorCommand()),
 
     CHECK_GENRE(new CheckGenreCommand()),
-    CHECK_AUTHOR(new CheckAuthorCommand()),
-    CHECK_PUBLISHER(new CheckPublisherCommand());
+    CHECK_AUTHOR(new CheckAuthorCommand());
 
     private final Command command;
 

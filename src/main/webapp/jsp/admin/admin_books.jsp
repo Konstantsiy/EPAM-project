@@ -5,7 +5,7 @@
     <jsp:include page="admin_head.jsp" />
 </head>
 <body>
-<div class="wra pper">
+<div class="wrapper">
     <jsp:include page="admin_sidebar.jsp" />
     <div class="table2" id="table2">
         <table class="styled-table">
@@ -14,7 +14,7 @@
                 <th>Book</th>
                 <th>Title</th>
                 <th>Author</th>
-                <th>Genres</th>
+                <th>Genre</th>
                 <th>Cover</th>
                 <th>Size</th>
                 <th>Price</th>
@@ -29,12 +29,7 @@
                     <td><img src="data:image/jpg;base64,${book.image}" width="60" height="75"></td>
                     <td>${book.title}</td>
                     <td>${book.author}</td>
-                    <td>
-                        ${book.genre}
-<%--                        <c:forEach items="${book.genres}" var="genre">--%>
-<%--                            <p>${genre.title}</p>--%>
-<%--                        </c:forEach>--%>
-                    </td>
+                    <td>${book.genre}</td>
                     <td>${book.cover}</td>
                     <td>${book.size}</td>
                     <td>${book.price} $</td>
@@ -60,24 +55,27 @@
                     <label for="book_size">
                         <input type="number" placeholder="Pages number" name="book_size" id="book_size" required>
                     </label>
-                    <select name="book_author" id="book_author">
-                        <option value="auth_id">Author Surname1</option>
-                        <option value="Author2">Author2</option>
-                        <option value="Author3">Author3</option>
-                        <option value="Author4">Author4</option>
+                    <select name="book_author_id" id="book_author_id">
+                        <c:forEach items="${authors}" var="author">
+                            <option value="${author.id}">${author.name} ${author.surname}</option>
+                        </c:forEach>
                     </select>
                     <div class="selector-genres">
-                        <select name="book_genre_title" id="book_genre_title" required>
-                            <option value="Genre1">Genre1</option>
-                            <option value="Genre2">Genre2</option>
-                            <option value="Genre3">Genre3</option>
-                            <option value="Genre4">Genre4</option>
+                        <select name="book_genre" id="book_genre" required>
+                            <option value="horror">Horror</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="detectives">Detectives</option>
+                            <option value="fantasy">Fantasy</option>
+                            <option value="philosophy">Philosophy</option>
+                            <option value="educational">Educational</option>
+                            <option value="children">Children</option>
                         </select>
                     </div>
                     <select name="book_cover" id="book_cover" required>
-                        <option value="Cover1">Cover1</option>
-                        <option value="Cover2">Cover2</option>
-                        <option value="Cover3">Cover3</option>
+                        <option value="hard">Hard</option>
+                        <option value="soft">Soft</option>
+                        <option value="french">French</option>
+                        <option value="typographic">Typographic</option>
                     </select>
                     <label for="book_p_year">
                         <input type="number" placeholder="Publishing year" id="book_p_year" name="book_p_year" required>
@@ -98,16 +96,18 @@
                 <!-- ---------------------search form for books---------------------- -->
                 <from class="search-book">
                     <select name="search_genre" id="search_genre">
-                        <option value="Horror">Horror</option>
-                        <option value="Fiction">Fiction</option>
-                        <option value="Adventure">Adventure</option>
-                        <option value="Fantastic">Fantastic</option>
+                        <option value="horror">Horror</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="detectives">Detectives</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="philosophy">Philosophy</option>
+                        <option value="educational">Educational</option>
+                        <option value="children">Children</option>
                     </select>
                     <select name="search_author" id="search_author">
-                        <option value="Author1">Author1</option>
-                        <option value="Author2">Author2</option>
-                        <option value="Author3">Author3</option>
-                        <option value="Author4">Author4</option>
+                        <c:forEach items="${authors}" var="author">
+                            <option value="${author.id}">${author.name} ${author.surname}</option>
+                        </c:forEach>
                     </select>
                     <div class="selector">
                         <label for="year_from">
@@ -124,7 +124,7 @@
         </div>
         <div class="popup-btn-container">
             <button class="popup-btn" onclick="togglePopup1()"><i class="fas fa-plus"></i></button>
-            <button class="popup-btn" onclick="togglePopup2()"><i class="fas fa-search"></i></button>
+            <button class="popup-btn" onclick="togglePopup2()" style="margin-left: 60px;"><i class="fas fa-search"></i></button>
         </div>
     </div>
 </div>

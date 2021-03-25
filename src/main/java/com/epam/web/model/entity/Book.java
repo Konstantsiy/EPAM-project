@@ -31,6 +31,10 @@ public class Book extends BaseEntity {
         return size;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -72,6 +76,21 @@ public class Book extends BaseEntity {
         result += 31 * 17 + Double.hashCode(price);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("Book{")
+                .append("id=").append(id)
+                .append("title=").append(title)
+                .append("size=").append(size)
+                .append("price=").append(price)
+                .append("year=").append(year)
+                .append("authorId=").append(authorId)
+                .append("cover=").append(cover.getTitle())
+                .append("genre=").append(genre.getTitle())
+                .toString();
+    }
+
 
     public static class Builder {
         private final Book newBook;
