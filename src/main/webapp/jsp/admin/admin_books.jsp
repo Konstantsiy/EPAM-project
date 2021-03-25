@@ -28,9 +28,9 @@
                 <tr>
                     <td><img src="data:image/jpg;base64,${book.image}" width="60" height="75"></td>
                     <td>${book.title}</td>
-                    <td>${book.author}</td>
-                    <td>${book.genre}</td>
-                    <td>${book.cover}</td>
+                    <td>${book.author.name} ${book.author.surname}</td>
+                    <td>${book.genre.title}</td>
+                    <td>${book.cover.title}</td>
                     <td>${book.size}</td>
                     <td>${book.price} $</td>
                     <td>${book.year}</td>

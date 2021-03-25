@@ -25,6 +25,7 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
     private static final String ADD_BOOK = "INSERT INTO books (title, size, price, p_year, image, genre, cover, description, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String CHECK_BOOK = "SELECT * FROM books WHERE ? = books.title";
     private static final String FIND_ALL_BOOKS = "SELECT * FROM books";
+    private static final String FIND_BY_ID = "SELECT * FROM books WHERE ? = books.id";
     private static final String DELETE_BOOK = "DELETE FROM books WHERE ? = books.id";
 
     private BookDaoImpl() {}
@@ -83,38 +84,66 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
         List<Book> books = new ArrayList<>();
         try {
             while(resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String title = resultSet.getString(2);
-                int size = resultSet.getInt(3);
-                double price = resultSet.getDouble(4);
-                int year = resultSet.getInt(5);
-
-                Blob blob = resultSet.getBlob(6);
-                String base64Image = TypeConverter.blobToString(blob);
-
-                int authorId = resultSet.getByte(7);
-                String cover = resultSet.getString(8);
-                Cover bookCover = Cover.valueOf(cover);
-                String desc = resultSet.getString(9);
-                Genre genre = Genre.valueOf(resultSet.getString(10));
-                Book book = new Book.Builder()
-                        .withId(id)
-                        .withTitle(title)
-                        .withSize(size)
-                        .withPrice(price)
-                        .withYear(year)
-                        .withImage(base64Image)
-                        .withAuthorId(authorId)
-                        .withCover(bookCover)
-                        .withDesc(desc)
-                        .withGenre(genre)
-                        .build();
-                books.add(book);
+                books.add(convertResultSetToEntity(resultSet));
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
         return books;
+    }
+
+    @Override
+    public Book convertResultSetToEntity(ResultSet resultSet) {
+        Book book = null;
+        try {
+            int id = resultSet.getInt(1);
+            String title = resultSet.getString(2);
+            int size = resultSet.getInt(3);
+            double price = resultSet.getDouble(4);
+            int year = resultSet.getInt(5);
+            Blob blob = resultSet.getBlob(6);
+
+            String base64Image = TypeConverter.blobToString(blob);
+
+            int authorId = resultSet.getByte(7);
+            Cover cover = Cover.valueOf(resultSet.getString(8));
+            String desc = resultSet.getString(9);
+            Genre genre = Genre.valueOf(resultSet.getString(10));
+            book = new Book.Builder()
+                    .withId(id)
+                    .withTitle(title)
+                    .withSize(size)
+                    .withPrice(price)
+                    .withYear(year)
+                    .withImage(base64Image)
+                    .withAuthorId(authorId)
+                    .withCover(cover)
+                    .withDesc(desc)
+                    .withGenre(genre)
+                    .build();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        }
+        return book;
+    }
+
+    @Override
+    public Book findById(int id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Book neededBook = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_ID);
+            resultSet = statement.executeQuery();
+            neededBook = convertResultSetToEntity(resultSet);
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return neededBook;
     }
 
     @Override

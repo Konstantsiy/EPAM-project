@@ -3,9 +3,12 @@ package com.epam.web.controller.command.impl;
 import com.epam.web.controller.command.Command;
 import com.epam.web.controller.command.PagePath;
 import com.epam.web.controller.command.RequestParam;
+import com.epam.web.model.entity.Author;
 import com.epam.web.model.entity.Book;
 import com.epam.web.model.fabric.BookFabric;
+import com.epam.web.model.service.AuthorService;
 import com.epam.web.model.service.BookService;
+import com.epam.web.model.service.impl.AuthorServiceImpl;
 import com.epam.web.model.service.impl.BookServiceImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -20,9 +23,11 @@ import java.util.Optional;
 public class AddBookCommand implements Command {
     private static final Logger logger = LogManager.getLogger(AddBookCommand.class);
     private final BookService bookService;
+    private final AuthorService authorService;
 
     public AddBookCommand() {
         this.bookService = new BookServiceImpl();
+        this.authorService = new AuthorServiceImpl();
     }
 
     @Override
@@ -48,11 +53,14 @@ public class AddBookCommand implements Command {
         logger.debug("genre: " + genreTitle + "\t authorId: " + authorId);
 
         Optional<Book> bookOptional = BookFabric.createBook(title, price, authorId, genreTitle, cover, year, size, desc, "");
+
         if(bookOptional.isPresent()) {
             if(bookService.add(bookOptional.get(), imagePart)) {
                 logger.debug("Added new book: " + title);
-                List<Book> existsBooks = bookService.findAll();
-                request.setAttribute("books", existsBooks);
+                List<Book> existBooks = bookService.findAll();
+                List<Author> existAuthors = authorService.findAll();
+                request.setAttribute("books", existBooks);
+                request.setAttribute("authors", existAuthors);
             }
         }
         return page;

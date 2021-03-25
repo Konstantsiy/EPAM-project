@@ -23,6 +23,8 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
     private final String ADD_AUTHOR = "INSERT INTO authors (image, name, surname, bio) VALUES (?, ?, ?, ?)";
     private final String CHECK_AUTHOR = "SELECT * FROM authors WHERE ? = authors.name AND ? = authors.surname";
     private final String FIND_ALL_AUTHORS = "SELECT authors.id, authors.image, authors.name, authors.surname FROM authors";
+    private final String FIND_BY_ID = "SELECT * FROM authors WHERE ? = authors.id";
+    private final String FIND_BY_ID_WITHOUT_IMAGE = "SELECT authors.name, authors.surname FROM authors WHERE ? = authors.id";
     private final String DELETE_AUTHOR = "DELETE FROM authors WHERE ? = authors.id";
 
     private AuthorDaoImpl() {}
@@ -84,27 +86,79 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
         List<Author> authors = new ArrayList<>();
         try {
             while(resultSet.next()) {
-                int id = resultSet.getInt(1);
-                Blob blob = resultSet.getBlob(2);
-                String name = resultSet.getString(3);
-                String surname = resultSet.getString(4);
-                InputStream inputStream = blob.getBinaryStream();
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                byte[] buffer = new byte[4096];
-                int bytesRead = -1;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-                byte[] imageBytes = outputStream.toByteArray();
-                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-                inputStream.close();
-                outputStream.close();
-                authors.add(new Author(id, name, surname, base64Image));
+                authors.add(convertResultSetToEntity(resultSet));
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             logger.debug(e.getMessage());
         }
         return authors;
+    }
+
+    @Override
+    public Author convertResultSetToEntity(ResultSet resultSet) {
+        Author author = null;
+        try {
+            int id = resultSet.getInt(1);
+            Blob blob = resultSet.getBlob(2);
+            String name = resultSet.getString(3);
+            String surname = resultSet.getString(4);
+            InputStream inputStream = blob.getBinaryStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            byte[] imageBytes = outputStream.toByteArray();
+            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+            inputStream.close();
+            outputStream.close();
+            author = new Author(id, name, surname, base64Image);
+        } catch (SQLException | IOException e) {
+            logger.error(e.getMessage());
+        }
+        return author;
+    }
+
+    public Author findByIdForPresent(int neededId) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Author neededAuthor = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_ID);
+            statement.setInt(1, neededId);
+            resultSet = statement.executeQuery();
+            String name = resultSet.getString(1);
+            String surname = resultSet.getString(2);
+            neededAuthor = new Author(-1, name, surname, "");
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return neededAuthor;
+    }
+
+    @Override
+    public Author findById(int id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Author neededAuthor = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_ID);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+            neededAuthor = convertResultSetToEntity(resultSet);
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return neededAuthor;
     }
 
     @Override

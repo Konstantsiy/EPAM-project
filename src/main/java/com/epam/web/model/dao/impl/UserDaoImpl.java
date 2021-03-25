@@ -146,4 +146,14 @@ public class UserDaoImpl extends ClosableDao implements UserDao {
     public List<User> convertResultSetToList(ResultSet resultSet) {
         return null;
     }
+
+    @Override
+    public User convertResultSetToEntity(ResultSet resultSet) {
+        return null;
+    }
+
+    @Override
+    public User findById(int id) {
+        return null;
+    }
 }

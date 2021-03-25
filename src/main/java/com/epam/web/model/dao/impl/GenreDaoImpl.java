@@ -90,6 +90,16 @@ public class GenreDaoImpl extends ClosableDao implements GenreDao {
     }
 
     @Override
+    public Genre1 convertResultSetToEntity(ResultSet resultSet) {
+        return null;
+    }
+
+    @Override
+    public Genre1 findById(int id) {
+        return null;
+    }
+
+    @Override
     public List<Genre1> findAll() {
         logger.debug("Getting all genres...");
         List<Genre1> genres = null;
