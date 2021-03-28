@@ -35,7 +35,7 @@
                     <td>${book.price} $</td>
                     <td>${book.year}</td>
                     <td><a href="#" class="myButton">edit</a></td>
-                    <td><a href="#" class="myButton">delete</a></td>
+                    <td><a href="${pageContext.request.contextPath}/controller?command=delete_book&id=${book.id}" class="myButton">delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -98,6 +98,7 @@
                 <h1>Where are the books, Lebowski?</h1>
                 <!-- ---------------------search form for books---------------------- -->
                 <from class="search-book">
+                    <input type="hidden" name="command" value="search_book">
                     <select name="search_genre" id="search_genre">
                         <option value="horror">Horror</option>
                         <option value="adventure">Adventure</option>
@@ -107,17 +108,17 @@
                         <option value="educational">Educational</option>
                         <option value="children">Children</option>
                     </select>
-                    <select name="search_author" id="search_author">
+                    <select name="search_author_id" id="search_author_id">
                         <c:forEach items="${authors}" var="author">
                             <option value="${author.id}">${author.name} ${author.surname}</option>
                         </c:forEach>
                     </select>
                     <div class="selector">
-                        <label for="year_from">
-                            <input type="number" placeholder="from" id="year_from" name="year_from">
+                        <label for="search_from">
+                            <input type="number" placeholder="from" id="search_from" name="search_from">
                         </label>
-                        <label for="year_to">
-                            <input type="number" placeholder="to" id="year_to" name="year_to">
+                        <label for="search_to">
+                            <input type="number" placeholder="to" id="search_to" name="search_to">
                         </label>
                     </div>
                     <input type="submit" class="searching" value="Search">

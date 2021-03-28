@@ -9,10 +9,7 @@ public class RequestParam {
     public static final String BOOK_SIZE = "book_size";
     public static final String BOOK_AUTHOR_ID = "book_author_id";
     public static final String BOOK_GENRE = "book_genre";
-//    public static final String BOOK_GENRE2_ID = "book_genre2";
-//    public static final String BOOK_GENRE3_ID = "book_genre3";
     public static final String BOOK_COVER = "book_cover";
-//    public static final String BOOK_PUBLISHER_ID = "book_publisher";
     public static final String BOOK_PUBLISHING_YEAR = "book_p_year";
     public static final String BOOK_DESCRIPTION = "book_desc";
     public static final String BOOK_PRICE = "book_price";
@@ -25,6 +22,12 @@ public class RequestParam {
     public static final String GENRE_TITLE = "genre_title";
 //    --------publisher--------
     public static final String PUBLISHER_TITLE = "p_title";
+//    --------search--------
+    public static final String SEARCH_GENRE = "search_genre";
+    public static final String SEARCH_AUTHOR_ID = "search_author_id";
+    public static final String SEARCH_FROM = "search_from";
+    public static final String SEARCH_TO = "search_to";
+
 
 
     private RequestParam() {}

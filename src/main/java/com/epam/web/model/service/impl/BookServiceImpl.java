@@ -36,4 +36,21 @@ public class BookServiceImpl implements BookService {
     public void delete(int id) {
         bookDao.deleteById(id);
     }
+
+    @Override
+    public List<Book> findBy(String... params) {
+        if(!params[0].isEmpty() && !params[1].isEmpty() && !params[2].isEmpty() && !params[3].isEmpty()) {
+            return bookDao.findByAuthorIdGenreYears(Integer.parseInt(params[0]), params[1], Integer.parseInt(params[2]), Integer.parseInt(params[3]));
+        }
+        if(!params[0].isEmpty() && params[1].isEmpty() && params[2].isEmpty() && params[3].isEmpty()) {
+            return bookDao.findByAuthorId(Integer.parseInt(params[0]));
+        }
+        if(params[0].isEmpty() && !params[1].isEmpty() && params[2].isEmpty() && params[3].isEmpty()) {
+            return bookDao.findByGenre(params[1]);
+        }
+        if(params[0].isEmpty() && params[1].isEmpty() && !params[2].isEmpty() && !params[3].isEmpty()) {
+            return bookDao.findByYears(Integer.parseInt(params[2]), Integer.parseInt(params[3]));
+        }
+        return null;
+    }
 }

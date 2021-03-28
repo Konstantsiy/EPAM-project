@@ -8,6 +8,7 @@ public enum CommandType {
     REGISTRATION(new RegistrationCommand()),
 
     ADMIN_LOGIN(new LoginCommand(true)),
+
     ADD_AUTHOR(new AddAuthorCommand()),
     ADD_GENRE(new AddGenreCommand()),
     ADD_BOOK(new AddBookCommand()),
@@ -19,6 +20,9 @@ public enum CommandType {
 
     DELETE_GENRE(new DeleteGenreCommand()),
     DELETE_AUTHOR(new DeleteAuthorCommand()),
+    DELETE_BOOK(new DeleteBookCommand()),
+
+    SEARCH_BOOK(new SearchBooksCommand()),
 
     CHECK_GENRE(new CheckGenreCommand()),
     CHECK_AUTHOR(new CheckAuthorCommand());

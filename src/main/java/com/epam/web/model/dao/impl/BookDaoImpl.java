@@ -2,12 +2,8 @@ package com.epam.web.model.dao.impl;
 
 import com.epam.web.model.dao.BookDao;
 import com.epam.web.model.dao.ClosableDao;
-import com.epam.web.model.entity.Author;
-import com.epam.web.model.entity.Book;
-import com.epam.web.model.entity.Cover;
-import com.epam.web.model.entity.Genre;
+import com.epam.web.model.entity.*;
 import com.epam.web.model.fabric.AuthorFabric;
-import com.epam.web.model.fabric.BookFabric;
 import com.epam.web.model.pool.ConnectionPool;
 import com.epam.web.util.TypeConverter;
 import org.apache.log4j.LogManager;
@@ -38,6 +34,9 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
             .append("ON books.author_id = authors.id").toString();
     private static final String FIND_BY_ID = "SELECT * FROM books WHERE ? = books.id";
     private static final String DELETE_BOOK = "DELETE FROM books WHERE ? = books.id";
+    private static final String FIND_BY_GENRE = "SELECT * FROM books WHERE ? = books.genre";
+    private static final String FIND_BY_AUTHOR = "SELECT * FROM books WHERE ? = books.author_id";
+    private static final String FIND_BY_YEARS = "SELECT * FROM books WHERE books.p_year > ? AND books.p_year < ?";
 
     private BookDaoImpl() {}
 
@@ -89,6 +88,72 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
             close(connection, statement, resultSet);
         }
         return result;
+    }
+
+    @Override
+    public List<Book> findByAuthorId(int authorId) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Book> neededBooks = new ArrayList<>();
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_AUTHOR);
+            statement.setInt(1, authorId);
+            resultSet = statement.executeQuery();
+            neededBooks = convertResultSetToList(resultSet);
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return neededBooks;
+    }
+
+    @Override
+    public List<Book> findByGenre(String genreTitle) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Book> neededBooks = new ArrayList<>();
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_GENRE);
+            statement.setString(1, genreTitle);
+            resultSet = statement.executeQuery();
+            neededBooks = convertResultSetToList(resultSet);
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return neededBooks;
+    }
+
+    @Override
+    public List<Book> findByYears(int from, int to) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Book> neededBooks = new ArrayList<>();
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_YEARS);
+            statement.setInt(1, from);
+            statement.setInt(2, to);
+            resultSet = statement.executeQuery();
+            neededBooks = convertResultSetToList(resultSet);
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return neededBooks;
+    }
+
+    @Override
+    public List<Book> findByAuthorIdGenreYears(int authorId, String genreTitle, int from, int to) {
+        return null;
     }
 
     @Override
