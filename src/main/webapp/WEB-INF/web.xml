@@ -5,6 +5,15 @@
          version="4.0">
 
     <servlet>
+        <servlet-name>myFoo</servlet-name>
+        <jsp-file>/jsp/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>myFoo</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AdminServlet</servlet-name>
         <jsp-file>/jsp/admin/admin_login.jsp</jsp-file>
     </servlet>
@@ -12,6 +21,7 @@
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
+
 
     <error-page>
         <error-code>404</error-code>

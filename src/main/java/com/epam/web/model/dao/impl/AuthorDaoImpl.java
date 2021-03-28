@@ -4,6 +4,7 @@ import com.epam.web.model.dao.AuthorDao;
 import com.epam.web.model.dao.ClosableDao;
 import com.epam.web.model.entity.Author;
 import com.epam.web.model.pool.ConnectionPool;
+import com.epam.web.util.TypeConverter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -102,17 +103,19 @@ public class AuthorDaoImpl extends ClosableDao implements AuthorDao {
             Blob blob = resultSet.getBlob(2);
             String name = resultSet.getString(3);
             String surname = resultSet.getString(4);
-            InputStream inputStream = blob.getBinaryStream();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            byte[] imageBytes = outputStream.toByteArray();
-            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-            inputStream.close();
-            outputStream.close();
+
+//            InputStream inputStream = blob.getBinaryStream();
+//            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//            byte[] buffer = new byte[4096];
+//            int bytesRead = -1;
+//            while ((bytesRead = inputStream.read(buffer)) != -1) {
+//                outputStream.write(buffer, 0, bytesRead);
+//            }
+//            byte[] imageBytes = outputStream.toByteArray();
+//            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+            String base64Image = TypeConverter.blobToString(blob);
+
             author = new Author(id, name, surname, base64Image);
         } catch (SQLException | IOException e) {
             logger.error(e.getMessage());

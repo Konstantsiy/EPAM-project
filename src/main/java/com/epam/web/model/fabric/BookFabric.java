@@ -1,5 +1,6 @@
 package com.epam.web.model.fabric;
 
+import com.epam.web.model.entity.Author;
 import com.epam.web.model.entity.Book;
 import com.epam.web.model.entity.Cover;
 import com.epam.web.model.entity.Genre;
@@ -11,7 +12,7 @@ import java.util.Optional;
 public class BookFabric {
     private static final Logger logger = LogManager.getLogger(BookFabric.class);
 
-    public static Optional<Book> createBook(String tile, String price, String authorId,
+    public static Optional<Book> createBook(String tile, String price, Author author,
                                             String genreTitle, String cover, String year,
                                             String size, String desc, String image) {
         try {
@@ -22,9 +23,9 @@ public class BookFabric {
                     .withPrice(Double.parseDouble(price))
                     .withYear(Integer.parseInt(year))
                     .withImage(image)
-                    .withAuthorId(Integer.parseInt(authorId))
-                    .withGenre(Genre.valueOf(genreTitle))
-                    .withCover(Cover.valueOf(cover))
+                    .withAuthor(author)
+                    .withGenre(Genre.valueOf(genreTitle.toUpperCase()))
+                    .withCover(Cover.valueOf(cover.toUpperCase()))
                     .withDesc(desc)
                     .build();
             return Optional.of(book);

@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Cover {
-    HARD ("Hard cover"),
-    SOFT ("Soft cover"),
-    FRENCH ("French cover"),
-    TYPOGRAPHIC ("Typographic cover");
+    HARD ("hard"),
+    SOFT ("soft"),
+    FRENCH ("french"),
+    TYPOGRAPHIC ("typographic");
 
     private final String title;
 

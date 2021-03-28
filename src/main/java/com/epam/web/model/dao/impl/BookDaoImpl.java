@@ -2,9 +2,12 @@ package com.epam.web.model.dao.impl;
 
 import com.epam.web.model.dao.BookDao;
 import com.epam.web.model.dao.ClosableDao;
+import com.epam.web.model.entity.Author;
 import com.epam.web.model.entity.Book;
 import com.epam.web.model.entity.Cover;
 import com.epam.web.model.entity.Genre;
+import com.epam.web.model.fabric.AuthorFabric;
+import com.epam.web.model.fabric.BookFabric;
 import com.epam.web.model.pool.ConnectionPool;
 import com.epam.web.util.TypeConverter;
 import org.apache.log4j.LogManager;
@@ -22,9 +25,17 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
     private static final BookDao instance = new BookDaoImpl();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static final String ADD_BOOK = "INSERT INTO books (title, size, price, p_year, image, genre, cover, description, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String ADD_BOOK = "INSERT INTO books (title, size, price, p_year, image, author_id, cover, description, genre) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String CHECK_BOOK = "SELECT * FROM books WHERE ? = books.title";
     private static final String FIND_ALL_BOOKS = "SELECT * FROM books";
+    private static final String FIND_BOOK_WITH_AUTHOR = new StringBuilder()
+            .append("SELECT books.id, books.title, books.size, books.price, books.p_year, books.image, books.author_id, books.cover, books.description, books.genre, authors.id, authors.name, authors.surname ")
+            .append("FROM books JOIN authors ")
+            .append("ON ? = books.author_id AND books.author_id = authors.id").toString();
+    private static final String FIND_ALL_BOOKS_WITH_AUTHORS = new StringBuilder()
+            .append("SELECT books.id, books.title, books.size, books.price, books.p_year, books.image, books.author_id, books.cover, books.description, books.genre, authors.id, authors.name, authors.surname ")
+            .append("FROM books JOIN authors ")
+            .append("ON books.author_id = authors.id").toString();
     private static final String FIND_BY_ID = "SELECT * FROM books WHERE ? = books.id";
     private static final String DELETE_BOOK = "DELETE FROM books WHERE ? = books.id";
 
@@ -47,9 +58,10 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
             statement.setDouble(3, book.getPrice());
             statement.setInt(4, book.getYear());
             statement.setBlob(5, imagePart.getInputStream());
-            statement.setInt(6, book.getAuthorId());
-            statement.setString(7, book.getCover());
+            statement.setInt(6, book.getAuthor().getId());
+            statement.setString(7, book.getCover().getTitle());
             statement.setString(8, book.getDescription());
+            statement.setString(9, book.getGenre().getTitle());
             result = statement.executeUpdate();
         } catch (SQLException | IOException e) {
             logger.error(e.getMessage());
@@ -106,9 +118,16 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
             String base64Image = TypeConverter.blobToString(blob);
 
             int authorId = resultSet.getByte(7);
-            Cover cover = Cover.valueOf(resultSet.getString(8));
+            Cover cover = Cover.valueOf(resultSet.getString(8).toUpperCase());
             String desc = resultSet.getString(9);
-            Genre genre = Genre.valueOf(resultSet.getString(10));
+            Genre genre = Genre.valueOf(resultSet.getString(10).toUpperCase());
+
+            int _authorId = resultSet.getInt(11);
+            String authorName = resultSet.getString(12);
+            String authorSurname = resultSet.getString(13);
+
+            Author author = AuthorFabric.createAuthor(_authorId, authorName, authorSurname);
+
             book = new Book.Builder()
                     .withId(id)
                     .withTitle(title)
@@ -116,12 +135,12 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
                     .withPrice(price)
                     .withYear(year)
                     .withImage(base64Image)
-                    .withAuthorId(authorId)
+                    .withAuthor(author)
                     .withCover(cover)
                     .withDesc(desc)
                     .withGenre(genre)
                     .build();
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             logger.error(e.getMessage());
         }
         return book;
@@ -154,7 +173,7 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
         List<Book> books = new ArrayList<>();
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_ALL_BOOKS);
+            statement = connection.prepareStatement(FIND_ALL_BOOKS_WITH_AUTHORS);
             resultSet = statement.executeQuery();
             books = convertResultSetToList(resultSet);
         } catch (SQLException e) {

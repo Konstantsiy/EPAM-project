@@ -5,6 +5,7 @@ import com.epam.web.controller.command.PagePath;
 import com.epam.web.controller.command.RequestParam;
 import com.epam.web.model.entity.Author;
 import com.epam.web.model.entity.Book;
+import com.epam.web.model.fabric.AuthorFabric;
 import com.epam.web.model.fabric.BookFabric;
 import com.epam.web.model.service.AuthorService;
 import com.epam.web.model.service.BookService;
@@ -52,7 +53,10 @@ public class AddBookCommand implements Command {
 
         logger.debug("genre: " + genreTitle + "\t authorId: " + authorId);
 
-        Optional<Book> bookOptional = BookFabric.createBook(title, price, authorId, genreTitle, cover, year, size, desc, "");
+        Author author = AuthorFabric.createAuthor(authorId);
+        Optional<Book> bookOptional = BookFabric.createBook(title, price, author, genreTitle, cover, year, size, desc, "");
+
+        logger.debug("book [" + title + "] was created");
 
         if(bookOptional.isPresent()) {
             if(bookService.add(bookOptional.get(), imagePart)) {

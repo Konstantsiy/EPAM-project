@@ -26,7 +26,7 @@
             <tbody>
             <c:forEach items="${books}" var="book">
                 <tr>
-                    <td><img src="data:image/jpg;base64,${book.image}" width="60" height="75"></td>
+                    <td><img src="data:image/jpg;base64,${book.image}" width="60" height="80"></td>
                     <td>${book.title}</td>
                     <td>${book.author.name} ${book.author.surname}</td>
                     <td>${book.genre.title}</td>
@@ -60,6 +60,9 @@
                             <option value="${author.id}">${author.name} ${author.surname}</option>
                         </c:forEach>
                     </select>
+                    <label for="book_price">
+                        <input type="number" placeholder="Book price ($)" id="book_price" name="book_price" required>
+                    </label>
                     <div class="selector-genres">
                         <select name="book_genre" id="book_genre" required>
                             <option value="horror">Horror</option>

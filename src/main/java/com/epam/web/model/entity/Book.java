@@ -2,7 +2,7 @@ package com.epam.web.model.entity;
 
 public class Book extends BaseEntity {
     private String title;
-    private int authorId;
+    private Author author;
     private Genre genre;
     private int size;
     private String image;
@@ -19,8 +19,8 @@ public class Book extends BaseEntity {
         return title;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public Author getAuthor() {
+        return author;
     }
 
     public Genre getGenre() {
@@ -39,8 +39,8 @@ public class Book extends BaseEntity {
         return price;
     }
 
-    public String getCover() {
-        return cover.getTitle();
+    public Cover getCover() {
+        return cover;
     }
 
     public int getYear() {
@@ -60,7 +60,7 @@ public class Book extends BaseEntity {
                 year == book.year &&
                 Double.compare(book.price, price) == 0 &&
                 title != null && title.equals(book.title) &&
-                authorId == book.authorId &&
+                author.equals(book.author) &&
                 genre.getTitle().equals(book.genre.getTitle()) &&
                 cover == book.cover;
     }
@@ -71,7 +71,7 @@ public class Book extends BaseEntity {
         result += 31 * 17 + title.hashCode();
         result += 31 * 17 + Integer.hashCode(size);
         result += 31 * 17 + Integer.hashCode(year);
-        result += 31 * 17 + Integer.hashCode(authorId);
+        result += 31 * 17 + author.hashCode();
         result += 31 * 17 + genre.getTitle().hashCode();
         result += 31 * 17 + Double.hashCode(price);
         return result;
@@ -85,7 +85,7 @@ public class Book extends BaseEntity {
                 .append("size=").append(size)
                 .append("price=").append(price)
                 .append("year=").append(year)
-                .append("authorId=").append(authorId)
+                .append("author=").append(author.toString())
                 .append("cover=").append(cover.getTitle())
                 .append("genre=").append(genre.getTitle())
                 .toString();
@@ -129,8 +129,8 @@ public class Book extends BaseEntity {
             return this;
         }
 
-        public Builder withAuthorId(int authorId) {
-            newBook.authorId = authorId;
+        public Builder withAuthor(Author author) {
+            newBook.author = author;
             return this;
         }
 
