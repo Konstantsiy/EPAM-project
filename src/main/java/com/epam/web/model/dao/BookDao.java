@@ -15,4 +15,5 @@ public interface BookDao extends BaseDao<Book>  {
     List<Book> findByGenre(String genreTitle);
     List<Book> findByYears(int from, int to);
     List<Book> findByAuthorIdGenreYears(int authorId, String genreTitle, int from, int to);
+    List<Book> findLastThreeBooks();
 }

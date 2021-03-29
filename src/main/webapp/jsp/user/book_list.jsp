@@ -32,15 +32,15 @@
 </div>
 <!-- -------------------------authors---------------------------------->
 <!-- -------------------------sorting---------------------------------->
-<div class="sort-by">
-    <div class="dropdown">
-        <button class="dropbtn">Sort by <i class="fa fa-sort-desc"></i></button>
-        <div class="dropdown-content">
-            <a href="#">newest</a>
-            <a href="#">oldest</a>
-        </div>
-    </div>
-</div>
+<%--<div class="sort-by">--%>
+<%--    <div class="dropdown">--%>
+<%--        <button class="dropbtn">Sort by <i class="fa fa-sort-desc"></i></button>--%>
+<%--        <div class="dropdown-content">--%>
+<%--            <a href="${pageContext.request.contextPath}/controller?command=sort_books&list=${books}&order=new">newest</a>--%>
+<%--            <a href="${pageContext.request.contextPath}/controller?command=sort_books&list=${books}&order=old">oldest</a>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <!-- -------------------------special books list---------------------------------->
 <div class="book-list-special">
     <ul>
@@ -70,5 +70,5 @@
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 <script src="https://use.fontawesome.com/323395ee44.js"></script>
-<script src="/bookstore/epam/appear_book_list.js"></script>
+<script src="${pageContext.request.contextPath}/js/appear_book_list.js"></script>
 </html>

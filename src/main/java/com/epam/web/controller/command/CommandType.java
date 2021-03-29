@@ -6,6 +6,7 @@ public enum CommandType {
     LOGIN(new LoginCommand(false)),
     LOGOUT(new LogoutCommand()),
     REGISTRATION(new RegistrationCommand()),
+    GO_HOME(new GoHomeCommand()),
 
     ADMIN_LOGIN(new LoginCommand(true)),
 
@@ -23,6 +24,7 @@ public enum CommandType {
     DELETE_BOOK(new DeleteBookCommand()),
 
     SEARCH_BOOK(new SearchBooksCommand()),
+//    SORT_BOOKS(new SortBooksCommand()),
 
     CHECK_GENRE(new CheckGenreCommand()),
     CHECK_AUTHOR(new CheckAuthorCommand());

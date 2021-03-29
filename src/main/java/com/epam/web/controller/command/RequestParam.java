@@ -3,6 +3,9 @@ package com.epam.web.controller.command;
 public class RequestParam {
     public static final String COMMAND = "command";
     public static final String ID = "id";
+    public static final String NEW_ORDER = "new";
+    public static final String OLD_ORDER = "old";
+    public static final String LIST = "list";
 //    ----------book----------
     public static final String BOOK_IMAGE = "book_image";
     public static final String BOOK_TITLE = "book_title";

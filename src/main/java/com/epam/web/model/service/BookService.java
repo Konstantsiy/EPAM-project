@@ -10,5 +10,6 @@ public interface BookService extends BaseService<Book> {
     boolean add(Book book, Part imagePart);
     boolean exists(String title);
     List<Book> findBy(String... params);
-
+    List<Book> sortByYears(List<Book> books, boolean isAscOrder);
+    List<Book> findLastThreeBooks();
 }

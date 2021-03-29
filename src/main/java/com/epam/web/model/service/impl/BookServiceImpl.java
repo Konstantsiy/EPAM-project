@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.Part;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
@@ -52,5 +54,20 @@ public class BookServiceImpl implements BookService {
             return bookDao.findByYears(Integer.parseInt(params[2]), Integer.parseInt(params[3]));
         }
         return null;
+    }
+
+    @Override
+    public List<Book> sortByYears(List<Book> books, boolean isAscOrder) {
+        if(isAscOrder) {
+            Collections.sort(books);
+        } else {
+            books.sort(Collections.reverseOrder());
+        }
+        return books;
+    }
+
+    @Override
+    public List<Book> findLastThreeBooks() {
+        return bookDao.findLastThreeBooks();
     }
 }

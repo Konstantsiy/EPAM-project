@@ -13,7 +13,7 @@
         <i class="fa fa-search" aria-hidden="true"></i>
         <input type="text" name="" placeholder="Search book...">
     </div>
-    <a href="#home">Home</a>
+    <a href="${pageContext.request.contextPath}/controller?command=home">Home</a>
     <a href="#about">About</a>
     <a href="#cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
     <div class="dropdown">

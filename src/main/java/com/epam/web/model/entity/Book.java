@@ -1,6 +1,6 @@
 package com.epam.web.model.entity;
 
-public class Book extends BaseEntity {
+public class Book extends BaseEntity implements Comparable<Book> {
     private String title;
     private Author author;
     private Genre genre;
@@ -89,6 +89,11 @@ public class Book extends BaseEntity {
                 .append("cover=").append(cover.getTitle())
                 .append("genre=").append(genre.getTitle())
                 .toString();
+    }
+
+    @Override
+    public int compareTo(Book book) {
+        return  Integer.compare(year, book.getYear());
     }
 
 
