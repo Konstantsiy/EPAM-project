@@ -6,7 +6,7 @@
     </div>
     <a href="#home">Home</a>
     <a href="#about">About</a>
-    <a href="#cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+<%--    <a href="#cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>--%>
     <div class="dropdown">
         <button class="dropbtn"><i class="fa fa-user-circle" aria-hidden="true"></i></button>
         <div class="dropdown-content">

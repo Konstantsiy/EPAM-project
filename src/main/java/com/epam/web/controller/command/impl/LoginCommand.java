@@ -32,7 +32,6 @@ public class LoginCommand implements Command {
         String emailValue = request.getParameter(PARAM_EMAIL);
         String passwordValue = request.getParameter(PARAM_PASSWORD);
 
-//        HttpSession session = request.getSession();
         if(isAdmin) {
             logger.debug("user try login as admin");
             if(!userService.adminVerification(emailValue, passwordValue)) {

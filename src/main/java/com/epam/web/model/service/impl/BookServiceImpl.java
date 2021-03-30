@@ -3,6 +3,7 @@ package com.epam.web.model.service.impl;
 import com.epam.web.model.dao.BookDao;
 import com.epam.web.model.dao.impl.BookDaoImpl;
 import com.epam.web.model.entity.Book;
+import com.epam.web.model.entity.BookWithAuthorBio;
 import com.epam.web.model.service.BookService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -40,20 +41,18 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findBy(String... params) {
-        if(!params[0].isEmpty() && !params[1].isEmpty() && !params[2].isEmpty() && !params[3].isEmpty()) {
-            return bookDao.findByAuthorIdGenreYears(Integer.parseInt(params[0]), params[1], Integer.parseInt(params[2]), Integer.parseInt(params[3]));
-        }
-        if(!params[0].isEmpty() && params[1].isEmpty() && params[2].isEmpty() && params[3].isEmpty()) {
-            return bookDao.findByAuthorId(Integer.parseInt(params[0]));
-        }
-        if(params[0].isEmpty() && !params[1].isEmpty() && params[2].isEmpty() && params[3].isEmpty()) {
-            return bookDao.findByGenre(params[1]);
-        }
-        if(params[0].isEmpty() && params[1].isEmpty() && !params[2].isEmpty() && !params[3].isEmpty()) {
-            return bookDao.findByYears(Integer.parseInt(params[2]), Integer.parseInt(params[3]));
-        }
-        return null;
+    public List<Book> findByAuthorId(int id) {
+        return bookDao.findByAuthorId(id);
+    }
+
+    @Override
+    public List<Book> findByGenre(String genreTitle) {
+        return bookDao.findByGenre(genreTitle);
+    }
+
+    @Override
+    public List<Book> findByYears(int from, int to) {
+        return bookDao.findByYears(from, to);
     }
 
     @Override
@@ -69,5 +68,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findLastThreeBooks() {
         return bookDao.findLastThreeBooks();
+    }
+
+    @Override
+    public BookWithAuthorBio findById_(int id) {
+        return bookDao.findById_(id);
     }
 }

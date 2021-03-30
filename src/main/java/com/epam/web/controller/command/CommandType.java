@@ -18,12 +18,14 @@ public enum CommandType {
     VIEW_ALL_USERS(new ViewUsersCommand()),
     VIEW_ALL_GENRES(new ViewGenresCommand()),
     VIEW_ALL_BOOKS(new ViewBooksCommand()),
+    VIEW_SINGLE_BOOK(new ViewSingleBookCommand()),
 
     DELETE_GENRE(new DeleteGenreCommand()),
     DELETE_AUTHOR(new DeleteAuthorCommand()),
     DELETE_BOOK(new DeleteBookCommand()),
 
-    SEARCH_BOOK(new SearchBooksCommand()),
+//    SEARCH_BOOK(new SearchBooksCommand()),
+    SEARCH_C(new SearchByCategoryCommand()),
 //    SORT_BOOKS(new SortBooksCommand()),
 
     CHECK_GENRE(new CheckGenreCommand()),

@@ -6,6 +6,7 @@ public class RequestParam {
     public static final String NEW_ORDER = "new";
     public static final String OLD_ORDER = "old";
     public static final String LIST = "list";
+    public static final String CATEGORY = "category";
 //    ----------book----------
     public static final String BOOK_IMAGE = "book_image";
     public static final String BOOK_TITLE = "book_title";

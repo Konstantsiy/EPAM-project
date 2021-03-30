@@ -4,6 +4,7 @@ import com.epam.web.controller.command.Command;
 import com.epam.web.controller.command.PagePath;
 import com.epam.web.model.entity.Author;
 import com.epam.web.model.entity.Book;
+import com.epam.web.model.entity.Genre;
 import com.epam.web.model.service.AuthorService;
 import com.epam.web.model.service.BookService;
 import com.epam.web.model.service.impl.AuthorServiceImpl;
@@ -26,8 +27,9 @@ public class GoHomeCommand implements Command {
         String page = PagePath.HOME;
         List<Book> newestBooks = bookService.findLastThreeBooks();
         List<Author> authors = authorService.findAll();
-        request.setAttribute("newest_books", newestBooks);
+        request.setAttribute("books", newestBooks);
         request.setAttribute("authors", authors);
+        request.setAttribute("genres", Genre.getStuff());
         return page;
     }
 }

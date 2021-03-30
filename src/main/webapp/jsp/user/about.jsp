@@ -27,6 +27,6 @@
         <path fill="#855f6d" d="M51.5 67c-.828 0-1.5-.672-1.5-1.5V64h3v1.5c0 .828-.672 1.5-1.5 1.5zm-21 0c-.828 0-1.5-.672-1.5-1.5V64h3v1.5c0 .828-.672 1.5-1.5 1.5z"></path>
     </g>
 </svg>
-<a href="${pageContext.request.contextPath}/controller?command=go_home" style="color: black;">go</a>
+<a href="${pageContext.request.contextPath}/controller?command=go_home" style="color: black;">go (na zachet)</a>
 </body>
 </html>

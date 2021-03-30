@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css" type="text/css">
     <jsp:include page="../include/links.jsp"></jsp:include>
     <title>Books</title>
 </head>
@@ -56,8 +57,10 @@
                         <p class="book-author-small">${book.author.name} ${book.author.surname}</p>
                         <p class="simple">${book.price} $</p>
                         <div class="book-buttons">
-                            <a href="#" class="a-add">Add to cart</a>
-                            <a href="#" class="a-view" style="margin-left: 10px;">View</a>
+<%--                            <a href="${pageContext.request.contextPath}/controller?command=add_to_cart&id=${book.id}">--%>
+<%--                                <button class="view-button">Add to Cart</button>--%>
+<%--                            </a>--%>
+                            <a href="${pageContext.request.contextPath}/controller?command=view_single_book&id=${book.id}"><button class="view-button">View</button></a>
                         </div>
                     </div>
                 </div>

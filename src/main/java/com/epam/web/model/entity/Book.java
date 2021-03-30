@@ -9,7 +9,7 @@ public class Book extends BaseEntity implements Comparable<Book> {
     private Cover cover;
     private double price;
     private int year;
-    private String description;
+    private String desc;
 
     public Book() {
         super();
@@ -47,8 +47,8 @@ public class Book extends BaseEntity implements Comparable<Book> {
         return year;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 
     @Override
@@ -150,7 +150,7 @@ public class Book extends BaseEntity implements Comparable<Book> {
         }
 
         public Builder withDesc(String desc) {
-            newBook.description = desc;
+            newBook.desc = desc;
             return this;
         }
 

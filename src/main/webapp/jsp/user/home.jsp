@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css" type="text/css">
     <jsp:include page="../include/links.jsp"></jsp:include>
     <title>Home</title>
 </head>
@@ -19,38 +20,20 @@
             </div>
         </section>
         <div class="new-books">
-            <p class="p-title">Newest Books</p>
+            <p class="p-title" style="font-family: 'Patrick Hand', cursive; font-size: 25px;">Newest Books</p>
             <div class="container-book-list new-books-container">
-                <div class="container-book">
-                    <div class="container-book-img">
-                        <img src="${pageContext.request.contextPath}/images/it.jpg" alt="">
+                <c:forEach items="${books}" var="book">
+                    <div class="container-book">
+                        <div class="container-book-img">
+                            <img src="data:image/jpg;base64,${book.image}" width="60" height="80">
+                        </div>
+                        <div class="container-book-content">
+                            <h2 style=" font-size: 20px;">${book.title}</h2>
+                            <p>${book.price} $</p>
+                            <a href="${pageContext.request.contextPath}/controller?command=view_single_book&id=${book.id}"><button class="view-button">View</button></a>
+                        </div>
                     </div>
-                    <div class="container-book-content">
-                        <h2>Book Title</h2>
-                        <p>24.5 $</p>
-                        <a href="#view"><button class="view-button">View</button></a>
-                    </div>
-                </div>
-                <div class="container-book">
-                    <div class="container-book-img">
-                        <img src="${pageContext.request.contextPath}/images/it.jpg" alt="">
-                    </div>
-                    <div class="container-book-content">
-                        <h2>Book Title</h2>
-                        <p>24.5 $</p>
-                        <a href="#view"><button class="view-button">View</button></a>
-                    </div>
-                </div>
-                <div class="container-book">
-                    <div class="container-book-img">
-                        <img src="${pageContext.request.contextPath}/images/it.jpg" alt="">
-                    </div>
-                    <div class="container-book-content">
-                        <h2>Book Title</h2>
-                        <p>24.5 $</p>
-                        <a href="#view"><button class="view-button">View</button></a>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </div>
@@ -58,22 +41,25 @@
 <!-- -------------------------genres---------------------------------->
 <div class="all-genres intro-genres">
     <ul>
-        <li>Horror</li>
-        <li>Fantasy</li>
-        <li>Comedy</li>
-        <li>Fiction</li>
-        <li>Adventure</li>
-        <li>Comics</li>
-        <li>Anime</li>
+        <c:forEach items="${genres}" var="genre">
+            <li style="font-family: 'Patrick Hand', cursive;line-height: 40px;font-size: 20px;">
+                <a href="${pageContext.request.contextPath}/controller?command=search_c&category=genre&genre_title=${genre.title}">
+                    ${genre.title}
+                </a>
+            </li>
+        </c:forEach>
     </ul>
 </div>
 <!-- -------------------------authors---------------------------------->
 <div class="all-authors intro-authors">
     <ul>
-        <li>Author1</li>
-        <li>Author2</li>
-        <li>Author3</li>
-        <li>Author4</li>
+        <c:forEach items="${authors}" var="author">
+            <li style="font-family: 'Patrick Hand', cursive;line-height: 40px;font-size: 20px;">
+                <a href="${pageContext.request.contextPath}/controller?command=search_c&category=author&id=${author.id}">
+                        ${author.name} ${author.surname}
+                </a>
+            </li>
+        </c:forEach>
     </ul>
 </div>
 </div>
