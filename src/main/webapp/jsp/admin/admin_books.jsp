@@ -64,14 +64,17 @@
                         <input type="number" placeholder="Book price ($)" id="book_price" name="book_price" required>
                     </label>
                     <div class="selector-genres">
-                        <select name="book_genre" id="book_genre" required>
-                            <option value="horror">Horror</option>
-                            <option value="adventure">Adventure</option>
-                            <option value="detectives">Detectives</option>
-                            <option value="fantasy">Fantasy</option>
-                            <option value="philosophy">Philosophy</option>
-                            <option value="educational">Educational</option>
-                            <option value="children">Children</option>
+                        <select name="book_genre_id" id="book_genre_id" required>
+                            <c:forEach items="${genres}" var="genre">
+                                <option value="${genre.id}">${genre.title}</option>
+                            </c:forEach>
+<%--                            <option value="horror">Horror</option>--%>
+<%--                            <option value="adventure">Adventure</option>--%>
+<%--                            <option value="detectives">Detectives</option>--%>
+<%--                            <option value="fantasy">Fantasy</option>--%>
+<%--                            <option value="philosophy">Philosophy</option>--%>
+<%--                            <option value="educational">Educational</option>--%>
+<%--                            <option value="children">Children</option>--%>
                         </select>
                     </div>
                     <select name="book_cover" id="book_cover" required>

@@ -1,9 +1,6 @@
 package com.epam.web.model.fabric;
 
-import com.epam.web.model.entity.Author;
-import com.epam.web.model.entity.Book;
-import com.epam.web.model.entity.Cover;
-import com.epam.web.model.entity.Genre;
+import com.epam.web.model.entity.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -13,7 +10,7 @@ public class BookFabric {
     private static final Logger logger = LogManager.getLogger(BookFabric.class);
 
     public static Optional<Book> createBook(String tile, String price, Author author,
-                                            String genreTitle, String cover, String year,
+                                            Genre genre, String cover, String year,
                                             String size, String desc, String image) {
         try {
             Book book = new Book.Builder()
@@ -24,7 +21,7 @@ public class BookFabric {
                     .withYear(Integer.parseInt(year))
                     .withImage(image)
                     .withAuthor(author)
-                    .withGenre(Genre.valueOf(genreTitle.toUpperCase()))
+                    .withGenre(genre)
                     .withCover(Cover.valueOf(cover.toUpperCase()))
                     .withDesc(desc)
                     .build();

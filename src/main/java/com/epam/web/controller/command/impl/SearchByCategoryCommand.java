@@ -36,8 +36,8 @@ public class SearchByCategoryCommand implements Command {
             books = bookService.findByAuthorId(id);
             logger.info("Get books by authors");
         } else if(category.equals("genre")) {
-            String genreTitle = request.getParameter(RequestParam.GENRE_TITLE);
-            books = bookService.findByGenre(genreTitle);
+            int id = Integer.parseInt(request.getParameter(RequestParam.ID));
+            books = bookService.findByGenreId(id);
             logger.info("Get books by genres");
         }
         request.setAttribute("books", books);

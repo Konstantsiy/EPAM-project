@@ -1,35 +1,33 @@
 package com.epam.web.model.entity;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public enum Genre {
-    HORROR("horror"),
-    ADVENTURE("adventure"),
-    DETECTIVES("detectives"),
-    FANTASY("fantasy"),
-    PHILOSOPHY("philosophy"),
-    EDUCATIONAL("educational"),
-    CLASSIC("classic"),
-    EROTIC("erotic"),
-    CHILDREN("children");
+public class Genre extends BaseEntity {
+    private String title;
 
-    private final String title;
-
-    Genre(String s) {
-        this.title = s;
+    public Genre(int id, String title) {
+        super(id);
+        this.title = title;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public static List<Genre> getStuff() {
-        return Arrays.asList(Genre.values());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Genre genre = (Genre) o;
+        return title != null && title.equals(genre.title);
     }
+
+    @Override
+    public int hashCode() {
+        return 31 * 17 + title.hashCode();
+    }
+
     @Override
     public String toString() {
-        return title;
+        return new StringBuilder("Genre{").append( "titleEng=").append(title).append("}").toString();
     }
 }

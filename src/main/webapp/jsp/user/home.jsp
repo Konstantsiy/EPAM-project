@@ -43,7 +43,7 @@
     <ul>
         <c:forEach items="${genres}" var="genre">
             <li style="font-family: 'Patrick Hand', cursive;line-height: 40px;font-size: 20px;">
-                <a href="${pageContext.request.contextPath}/controller?command=search_c&category=genre&genre_title=${genre.title}">
+                <a href="${pageContext.request.contextPath}/controller?command=search_c&category=genre&id=${genre.id}">
                     ${genre.title}
                 </a>
             </li>

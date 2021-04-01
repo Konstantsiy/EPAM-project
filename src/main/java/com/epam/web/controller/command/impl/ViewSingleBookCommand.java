@@ -3,7 +3,6 @@ package com.epam.web.controller.command.impl;
 import com.epam.web.controller.command.Command;
 import com.epam.web.controller.command.PagePath;
 import com.epam.web.controller.command.RequestParam;
-import com.epam.web.model.entity.Book;
 import com.epam.web.model.entity.BookWithAuthorBio;
 import com.epam.web.model.service.BookService;
 import com.epam.web.model.service.impl.BookServiceImpl;

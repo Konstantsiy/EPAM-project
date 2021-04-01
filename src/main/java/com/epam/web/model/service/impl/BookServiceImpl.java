@@ -9,9 +9,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.Part;
-import java.sql.SQLException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
@@ -46,8 +44,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findByGenre(String genreTitle) {
-        return bookDao.findByGenre(genreTitle);
+    public List<Book> findByGenreId(int id) {
+        return bookDao.findByGenreId(id);
     }
 
     @Override

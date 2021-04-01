@@ -5,12 +5,16 @@ import com.epam.web.controller.command.PagePath;
 import com.epam.web.controller.command.RequestParam;
 import com.epam.web.model.entity.Author;
 import com.epam.web.model.entity.Book;
+import com.epam.web.model.entity.Genre;
 import com.epam.web.model.fabric.AuthorFabric;
 import com.epam.web.model.fabric.BookFabric;
+import com.epam.web.model.fabric.GenreFabric;
 import com.epam.web.model.service.AuthorService;
 import com.epam.web.model.service.BookService;
+import com.epam.web.model.service.GenreService;
 import com.epam.web.model.service.impl.AuthorServiceImpl;
 import com.epam.web.model.service.impl.BookServiceImpl;
+import com.epam.web.model.service.impl.GenreServiceImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -25,10 +29,12 @@ public class AddBookCommand implements Command {
     private static final Logger logger = LogManager.getLogger(AddBookCommand.class);
     private final BookService bookService;
     private final AuthorService authorService;
+    private final GenreService genreService;
 
     public AddBookCommand() {
         this.bookService = new BookServiceImpl();
         this.authorService = new AuthorServiceImpl();
+        this.genreService = new GenreServiceImpl();
     }
 
     @Override
@@ -37,7 +43,7 @@ public class AddBookCommand implements Command {
 
         String title = request.getParameter(RequestParam.BOOK_TITLE);
         String authorId = request.getParameter(RequestParam.BOOK_AUTHOR_ID);
-        String genreTitle = request.getParameter(RequestParam.BOOK_GENRE);
+        String genreId = request.getParameter(RequestParam.BOOK_GENRE_ID);
         String cover = request.getParameter(RequestParam.BOOK_COVER);
         String year = request.getParameter(RequestParam.BOOK_PUBLISHING_YEAR);
         String size = request.getParameter(RequestParam.BOOK_SIZE);
@@ -51,10 +57,11 @@ public class AddBookCommand implements Command {
             logger.error(e.getMessage());
         }
 
-        logger.debug("genre: " + genreTitle + "\t authorId: " + authorId);
+        logger.debug("genre: " + genreId + "\t authorId: " + authorId);
 
         Author author = AuthorFabric.createAuthor(authorId);
-        Optional<Book> bookOptional = BookFabric.createBook(title, price, author, genreTitle, cover, year, size, desc, "");
+        Genre genre = GenreFabric.createGenre(Integer.parseInt(genreId), "");
+        Optional<Book> bookOptional = BookFabric.createBook(title, price, author, genre, cover, year, size, desc, "");
 
         logger.debug("book [" + title + "] was created");
 
@@ -63,7 +70,9 @@ public class AddBookCommand implements Command {
                 logger.debug("Added new book: " + title);
                 List<Book> existBooks = bookService.findAll();
                 List<Author> existAuthors = authorService.findAll();
+                List<Genre> existGenres = genreService.findAll();
                 request.setAttribute("books", existBooks);
+                request.setAttribute("genres", existGenres);
                 request.setAttribute("authors", existAuthors);
             }
         }

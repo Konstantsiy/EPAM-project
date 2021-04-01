@@ -12,7 +12,7 @@ public class RequestParam {
     public static final String BOOK_TITLE = "book_title";
     public static final String BOOK_SIZE = "book_size";
     public static final String BOOK_AUTHOR_ID = "book_author_id";
-    public static final String BOOK_GENRE = "book_genre";
+    public static final String BOOK_GENRE_ID = "book_genre_id";
     public static final String BOOK_COVER = "book_cover";
     public static final String BOOK_PUBLISHING_YEAR = "book_p_year";
     public static final String BOOK_DESCRIPTION = "book_desc";
@@ -23,6 +23,7 @@ public class RequestParam {
     public static final String AUTHOR_SURNAME = "author_surname";
     public static final String AUTHOR_BIOGRAPHY = "author_bio";
 //    ----------genre----------
+    public static final String GENRE_ID = "genre_id";
     public static final String GENRE_TITLE = "genre_title";
 //    --------publisher--------
     public static final String PUBLISHER_TITLE = "p_title";

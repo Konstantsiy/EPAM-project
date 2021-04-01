@@ -3,7 +3,7 @@ package com.epam.web.controller.command.impl;
 import com.epam.web.controller.command.Command;
 import com.epam.web.controller.command.PagePath;
 import com.epam.web.controller.command.RequestParam;
-import com.epam.web.model.entity.Genre1;
+import com.epam.web.model.entity.Genre;
 import com.epam.web.model.service.GenreService;
 import com.epam.web.model.service.impl.GenreServiceImpl;
 import org.apache.log4j.LogManager;
@@ -28,7 +28,7 @@ public class AddGenreCommand implements Command {
 
         if(genreService.add(title)) {
             logger.debug("Added new genre: " + title + " (" + title + ")");
-            List<Genre1> existGenres = genreService.findAll();
+            List<Genre> existGenres = genreService.findAll();
             request.setAttribute("genres", existGenres);
         } else {
             logger.debug("This genre is already exists");
