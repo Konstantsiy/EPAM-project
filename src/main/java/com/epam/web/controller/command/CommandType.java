@@ -7,6 +7,9 @@ public enum CommandType {
     LOGOUT(new LogoutCommand()),
     REGISTRATION(new RegistrationCommand()),
     GO_HOME(new GoHomeCommand()),
+    GO_ABOUT(new GoAboutCommand()),
+    GO_LOGIN(new GoLoginCommand()),
+    GO_REGISTRATION(new GoRegistrationCommand()),
 
     ADMIN_LOGIN(new LoginCommand(true)),
 

@@ -826,3 +826,50 @@ ul{
     margin-top: -20px;
 }
 /* -------------------------sorting------------------------------- */
+/* -------------------------group------------------------------- */
+.selected-group {
+    margin: 0 auto;
+    color: #EC6F66;
+    width: 100px;
+    font-family: 'Sansita Swashed', cursive;
+    border-radius: 30px;
+    padding: 15px;
+    height: 55px;
+    cursor: pointer;
+    background: url(http://sharpik.com/wip/cuteselect/arrow.png) 295px 12px no-repeat #ffc6c6;
+}
+
+.selected-group:hover {
+    background-color: transparent;
+}
+
+.all-genres select option {
+    background-color: white;
+    color: gray;
+    width: 310px;
+    padding: 10px 15px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.all-genres select option:hover{
+    padding-left: 25px;
+    width: 270px;
+    color: #EC6F66;
+}
+
+.selected-group option {
+    background-color: white;
+    color: gray;
+    width: 310px;
+    padding: 10px 15px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.selected-group option:hover {
+    padding-left: 25px;
+    width: 270px;
+    color: #EC6F66;
+}
+/* -------------------------group------------------------------- */

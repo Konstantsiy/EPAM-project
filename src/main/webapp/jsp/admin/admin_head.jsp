@@ -6,3 +6,4 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/language.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_home_buttons.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/formcheck.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/icon1.jpg" type="image/x-icon">

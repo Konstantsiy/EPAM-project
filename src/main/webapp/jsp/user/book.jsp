@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css" type="text/css">
     <jsp:include page="../include/links.jsp"></jsp:include>
-    <title>Document</title>
+    <title>${book.title}</title>
 </head>
 <body>
 <!-- ---------------------------navbar--------------------------------- -->

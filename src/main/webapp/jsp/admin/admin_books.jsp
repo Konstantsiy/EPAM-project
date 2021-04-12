@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <jsp:include page="admin_head.jsp" />
+    <title>Admin Books</title>
 </head>
 <body>
 <div class="wrapper">

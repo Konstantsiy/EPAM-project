@@ -4,6 +4,7 @@
 <head>
     <jsp:include page="admin_head.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/availability_check.css">
+    <title>Admin Genres</title>
 </head>
 <body>
 <div class="wrapper">

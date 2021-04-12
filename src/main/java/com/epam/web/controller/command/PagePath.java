@@ -1,6 +1,7 @@
 package com.epam.web.controller.command;
 
 public class PagePath {
+    public static final String ABOUT = "/jsp/user/about.jsp";
     public static final String LOGIN = "/jsp/user/login.jsp";
     public static final String REGISTRATION = "/jsp/user/registration.jsp";
     public static final String INDEX = "/index.jsp";

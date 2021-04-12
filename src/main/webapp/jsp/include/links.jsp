@@ -8,3 +8,4 @@
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Merienda+One&family=Patrick+Hand&family=Sansita+Swashed&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/icon1.jpg" type="image/x-icon">

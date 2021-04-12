@@ -40,29 +40,40 @@
 </div>
 <!-- -------------------------genres---------------------------------->
 <div class="all-genres intro-genres">
-    <ul>
-        <c:forEach items="${genres}" var="genre">
-            <li style="font-family: 'Patrick Hand', cursive;line-height: 40px;font-size: 20px;">
-                <a href="${pageContext.request.contextPath}/controller?command=search_c&category=genre&id=${genre.id}">
-                    ${genre.title}
-                </a>
-            </li>
-        </c:forEach>
-    </ul>
+    <div class="dropdown selected-group">
+        <button class="dropbtn">Genres</button>
+        <div class="dropdown-content">
+            <c:forEach items="${genres}" var="genre">
+                <a href="${pageContext.request.contextPath}/controller?command=search_c&category=genre&id=${genre.id}">${genre.title}</a>
+            </c:forEach>
+        </div>
+    </div>
 </div>
+<%--<div class="all-genres intro-genres">--%>
+<%--    <select class="selected-group">--%>
+<%--        <c:forEach items="${genres}" var="genre">--%>
+<%--            <option value="${pageContext.request.contextPath}/controller?command=search_c&category=genre&id=${genre.id}">${genre.title}</option>--%>
+<%--        </c:forEach>--%>
+<%--    </select>--%>
+<%--</div>--%>
 <!-- -------------------------authors---------------------------------->
 <div class="all-authors intro-authors">
-    <ul>
-        <c:forEach items="${authors}" var="author">
-            <li style="font-family: 'Patrick Hand', cursive;line-height: 40px;font-size: 20px;">
-                <a href="${pageContext.request.contextPath}/controller?command=search_c&category=author&id=${author.id}">
-                        ${author.name} ${author.surname}
-                </a>
-            </li>
-        </c:forEach>
-    </ul>
+    <div class="dropdown selected-group">
+        <button class="dropbtn">Genres</button>
+        <div class="dropdown-content">
+            <c:forEach items="${authors}" var="author">
+                <a href="${pageContext.request.contextPath}/controller?command=search_c&category=author&id=${author.id}">${author.name} ${author.surname}</a>
+            </c:forEach>
+        </div>
+    </div>
 </div>
-</div>
+<%--<div class="all-authors intro-authors">--%>
+<%--    <select class="selected-group">--%>
+<%--        <c:forEach items="${authors}" var="author">--%>
+<%--            <option value="${pageContext.request.contextPath}/controller?command=search_c&category=author&id=${author.id}">${author.name} ${author.surname}</option>--%>
+<%--        </c:forEach>--%>
+<%--    </select>--%>
+<%--</div>--%>
 <!-- -------------------------footer---------------------------------->
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </body>

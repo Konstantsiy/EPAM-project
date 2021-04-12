@@ -2,8 +2,17 @@ package com.epam.web.controller.command.impl;
 
 import com.epam.web.controller.command.Command;
 import com.epam.web.controller.command.PagePath;
+import com.epam.web.model.entity.Author;
+import com.epam.web.model.entity.Book;
+import com.epam.web.model.entity.Genre;
 import com.epam.web.model.entity.User;
+import com.epam.web.model.service.AuthorService;
+import com.epam.web.model.service.BookService;
+import com.epam.web.model.service.GenreService;
 import com.epam.web.model.service.UserService;
+import com.epam.web.model.service.impl.AuthorServiceImpl;
+import com.epam.web.model.service.impl.BookServiceImpl;
+import com.epam.web.model.service.impl.GenreServiceImpl;
 import com.epam.web.model.service.impl.UserServiceImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -48,6 +57,16 @@ public class LoginCommand implements Command {
             if(isAdmin) {
                 List<User> existUsers = userService.findAll();
                 request.setAttribute("users", existUsers);
+            } else {
+                BookService bookService = new BookServiceImpl();
+                AuthorService authorService = new AuthorServiceImpl();
+                GenreService genreService = new GenreServiceImpl();
+                List<Book> newestBooks = bookService.findLastThreeBooks();
+                List<Author> authors = authorService.findAll();
+                List<Genre> genres = genreService.findAll();
+                request.setAttribute("books", newestBooks);
+                request.setAttribute("authors", authors);
+                request.setAttribute("genres", genres);
             }
             page = isAdmin ? PagePath.ADMIN_AUTHORS : PagePath.HOME;
         } else {
