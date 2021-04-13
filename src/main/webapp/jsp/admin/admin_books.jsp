@@ -20,7 +20,7 @@
                 <th>Size</th>
                 <th>Price</th>
                 <th>Year</th>
-                <th></th>
+<%--                <th></th>--%>
                 <th></th>
             </tr>
             </thead>
@@ -35,7 +35,7 @@
                     <td>${book.size}</td>
                     <td>${book.price} $</td>
                     <td>${book.year}</td>
-                    <td><a href="#" class="myButton">edit</a></td>
+<%--                    <td><a href="#" class="myButton">edit</a></td>--%>
                     <td><a href="${pageContext.request.contextPath}/controller?command=delete_book&id=${book.id}" class="myButton">delete</a></td>
                 </tr>
             </c:forEach>

@@ -15,7 +15,7 @@
                 <th>Username</th>
                 <th>Age</th>
                 <th>Email</th>
-                <td></td>
+<%--                <td></td>--%>
             </tr>
             </thead>
             <tbody>
@@ -24,7 +24,7 @@
                     <td>${user.username}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
-                    <td><a href="#" class="myButton">block</a></td>
+<%--                    <td><a href="#" class="myButton">block</a></td>--%>
                 </tr>
             </c:forEach>
             </tbody>

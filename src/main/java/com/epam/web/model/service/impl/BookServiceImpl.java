@@ -72,4 +72,9 @@ public class BookServiceImpl implements BookService {
     public BookWithAuthorBio findById_(int id) {
         return bookDao.findById_(id);
     }
+
+    @Override
+    public List<Book> findBooksByChildren() {
+        return bookDao.findBooksForChildren();
+    }
 }

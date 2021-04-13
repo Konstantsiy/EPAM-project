@@ -828,15 +828,15 @@ ul{
 /* -------------------------sorting------------------------------- */
 /* -------------------------group------------------------------- */
 .selected-group {
-    margin: 0 auto;
-    color: #EC6F66;
-    width: 100px;
-    font-family: 'Sansita Swashed', cursive;
-    border-radius: 30px;
-    padding: 15px;
-    height: 55px;
-    cursor: pointer;
-    background: url(http://sharpik.com/wip/cuteselect/arrow.png) 295px 12px no-repeat #ffc6c6;
+    /*!*margin: 0 auto;*!*/
+    /*!*color: #EC6F66;*!*/
+    /*width: 100px;*/
+    /*font-family: 'Sansita Swashed', cursive;*/
+    /*!*border-radius: 30px;*!*/
+    /*!*padding: 15px;*!*/
+    /*!*height: 55px;*!*/
+    /*!*cursor: pointer;*!*/
+    /*!*background: url(http://sharpik.com/wip/cuteselect/arrow.png) 295px 12px no-repeat #ffc6c6;*!*/
 }
 
 .selected-group:hover {

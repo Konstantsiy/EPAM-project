@@ -54,6 +54,7 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
     private static final String FIND_BY_YEARS = "SELECT * FROM books WHERE books.p_year > ? AND books.p_year < ?";
     private static final String FIND_BY_AUTHOR_GENRE_YEARS = "SELECT * FROM books WHERE ? = books.author_id AND ? = books.genre AND books.p_year > ? AND books.p_year < ?";
     private static final String FIND_LAST_THREE_BOOKS = "SELECT books.id, books.title, books.price, books.image FROM books ORDER BY books.id DESC LIMIT 3";
+    private static final String FIND_BOOKS_FOR_CHILDREN = "SELECT books.id, books.title, books.price, books.image, books.genre FROM books WHERE books.genre = ? LIMIT 3";
 
 
     private BookDaoImpl() {}
@@ -201,6 +202,39 @@ public class BookDaoImpl extends ClosableDao implements BookDao {
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_LAST_THREE_BOOKS);
+            resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String title = resultSet.getString(2);
+                double price = resultSet.getDouble(3);
+                Blob image = resultSet.getBlob(4);
+                String base64Image = TypeConverter.blobToString(image);
+                Book book = new Book.Builder()
+                        .withId(id)
+                        .withTitle(title)
+                        .withImage(base64Image)
+                        .withPrice(price)
+                        .build();
+                books.add(book);
+            }
+        } catch (SQLException | IOException e) {
+            logger.error(e.getMessage());
+        } finally {
+            close(connection, statement, resultSet);
+        }
+        return books;
+    }
+
+    @Override
+    public List<Book> findBooksForChildren() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Book> books = new ArrayList<>();
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BOOKS_FOR_CHILDREN);
+            statement.setString(1, "For Children");
             resultSet = statement.executeQuery();
             while(resultSet.next()) {
                 int id = resultSet.getInt(1);

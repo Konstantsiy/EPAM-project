@@ -62,9 +62,11 @@ public class LoginCommand implements Command {
                 AuthorService authorService = new AuthorServiceImpl();
                 GenreService genreService = new GenreServiceImpl();
                 List<Book> newestBooks = bookService.findLastThreeBooks();
+//                List<Book> forChildren = bookService.findBooksByChildren();
                 List<Author> authors = authorService.findAll();
                 List<Genre> genres = genreService.findAll();
                 request.setAttribute("books", newestBooks);
+//                request.setAttribute("books1", forChildren);
                 request.setAttribute("authors", authors);
                 request.setAttribute("genres", genres);
             }

@@ -30,9 +30,11 @@ public class ViewBooksCommand implements Command {
     public String execute(HttpServletRequest request) {
         String page = PagePath.ADMIN_BOOKS;
         List<Book> existBooks = bookService.findAll();
+//        List<Book> forChildren = bookService.findBooksByChildren();
         List<Author> existAuthors = authorService.findAll();
         List<Genre> existGenres = genreService.findAll();
         request.setAttribute("books", existBooks);
+//        request.setAttribute("books1", forChildren);
         request.setAttribute("authors", existAuthors);
         request.setAttribute("genres", existGenres);
         return page;

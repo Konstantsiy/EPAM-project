@@ -16,4 +16,5 @@ public interface BookService extends BaseService<Book> {
     List<Book> sortByYears(List<Book> books, boolean isAscOrder);
     List<Book> findLastThreeBooks();
     BookWithAuthorBio findById_(int id);
+    List<Book> findBooksByChildren();
 }

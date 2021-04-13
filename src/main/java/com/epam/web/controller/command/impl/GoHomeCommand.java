@@ -31,9 +31,11 @@ public class GoHomeCommand implements Command {
     public String execute(HttpServletRequest request) {
         String page = PagePath.HOME;
         List<Book> newestBooks = bookService.findLastThreeBooks();
+//        List<Book> forChildren = bookService.findBooksByChildren();
         List<Author> authors = authorService.findAll();
         List<Genre> genres = genreService.findAll();
         request.setAttribute("books", newestBooks);
+//        request.setAttribute("books1", forChildren);
         request.setAttribute("authors", authors);
         request.setAttribute("genres", genres);
         return page;
